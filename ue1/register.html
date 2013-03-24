@@ -15,7 +15,7 @@
           <img src="img/header_right.png" alt="titel rechts" class="rheader"></img>
         </div>
         <div class="menu">
-          <a class="menuitem" href="">Einloggen</a>
+          <a class="menuitem" href="table.html">Einloggen</a>
         </div>
       </div>
       <div class="content">
@@ -64,7 +64,11 @@
             <fieldset>
               <input type="submit" disabled="disabled" name="button" id="button" value="Registrieren" />
             </fieldset>
-        </form>
+          </form>
+          <noscript>
+            Das Feld Geburtsdatum muss im Format dd.mm.yyyy sein. <br/>
+            Die Felder Benutzername und Passwort m&uuml;ssen mindestens 4, h&ouml;chstens 8 Zeichen lang sein.
+          </noscript>
       </div>
       <p class="footer">
         (C) 2013 Formel 0
@@ -72,7 +76,7 @@
     </div>
     <script type="text/javascript">
       var dateRegex = /(\d{1,2}\.\d{1,2}\.\d{4})/gm; 
-      var dateValid=0;
+      var dateValid=1;
       var userValid=0;
       var passwordValid=0;
 
@@ -100,12 +104,17 @@ $(function() {
     $('input#gbtag').on('change keypress paste input textInput',function() {
       var value;
 
-      value=$(this.val)
-        if($(this).val().match(dateRegex) != null)
-            dateValid=1;
-        else
+      value=$(this).val();
+      if(value != "") {
+        if(value.match(dateRegex) != null) {
+            dateValid=1;  
+        } else {
             dateValid=0;
-        commonVerify();
+        }
+      } else {
+        dateValid=1;
+      }
+      commonVerify();
     })
 
     $('input#user').on('change keypress paste input textInput',function() {
