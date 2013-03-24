@@ -5,39 +5,70 @@
   <head>
     <title>Formel 0 - Registrieren</title>
     <script type="text/javascript" src="js/jquery.js" ></script>
+    <link href="styles/screen.css" rel="stylesheet" />
   </head>
   <body>
-    <div class="title">
-      <div class="headerimg">
-        <img src="img/header_left.png" alt="titel links"></img>
-        <img src="img/header_right.png" alt="titel rechts"></img>
+    <div class="site">
+      <div class="title">
+        <div class="headerimg">
+          <img src="img/header_left.png" alt="titel links" class="lheader"></img>
+          <img src="img/header_right.png" alt="titel rechts" class="rheader"></img>
+        </div>
+        <div class="menu">
+          <a class="menuitem" href="">Einloggen</a>
+        </div>
       </div>
-      <a href="">Einloggen</a>
-    </div>
-    <div class="content">
-      <h1>Registrieren</h1>
-      <p>
-      Bitte f&uuml;llen Sie das unten stehende Formular aus!
+      <div class="content">
+        <h1>Registrieren</h1>
+        <p>
+        Bitte f&uuml;llen Sie das unten stehende Formular aus!
+        </p>
+        <form method="post" action="register.php">
+            <fieldset>
+              <legend>Pers&ouml;nliche Daten</legend>
+              <ol>
+                <li>
+                  <label for="vname">Vorname</label>
+                  <input type="text" name="vname" id="vname" title="Vorname" />
+                </li>
+                <li>
+                  <label for="nname">Nachname</label>
+                  <input type="text" name="nname" id="nname" title="Nachname" />
+                </li>
+                <li>
+                  <label for="gbtag">Geburtsdatum</label>
+                  <input type="text" name="gbtag" id="gbtag" title="Geburtsdatum" />
+                </li>
+                <li>
+                  <label for="geschlecht">Geschlecht</label>
+                  <select name="geschlecht" id="geschlecht" title="Geschlecht">
+                    <option>weiblich</option>
+                    <option>m&auml;nnlich</option>
+                  </select>
+                  </li>
+                </ol>
+              </fieldset>
+              <fieldset>
+                <legend>Login Daten</legend>
+                <ol>
+                  <li>
+                    <label for="user">Benutzername</label>
+                    <input type="text" name="user" id="user" title="Benutzername" />
+                  </li>
+                  <li>
+                    <label for="passwd">Passwort</label>
+                    <input type="password" name="passwd" id="passwd" title="Passwort"/>
+                  </li>
+                </ol>
+            </fieldset>
+            <fieldset>
+              <input type="submit" disabled="disabled" name="button" id="button" value="Registrieren" />
+            </fieldset>
+        </form>
+      </div>
+      <p class="footer">
+        (C) 2013 Formel 0
       </p>
-      <form method="post" action="register.php">
-        <div>
-          <h2>Pers&ouml;nliche Daten</h2>
-          <input type="text" name="vname" id="vname" />
-          <input type="text" name="nname" id="nname" />
-          <input type="text" name="gbtag" id="gbtag" />
-          <select name="geschlecht" id="geschlecht">
-            <option>weiblich</option>
-            <option>m&auml;nnlich</option>
-          </select>
-        </div>
-
-        <div>
-          <h2>Login Daten</h2>
-          <input type="text" name="user" id="user"  />
-          <input type="password" name="passwd" id="passwd" />
-          <input type="submit" disabled="disabled" name="button" id="button" value="Registrieren" />
-        </div>
-      </form>
     </div>
     <script type="text/javascript">
       var dateRegex = /(\d{1,2}\.\d{1,2}\.\d{4})/gm; 

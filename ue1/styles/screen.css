@@ -1,0 +1,98 @@
+body {
+background: #aaaaaa;
+}
+
+div.site {
+min-width: 100px;
+max-width: 1000px;
+margin-left: auto;
+margin-right: auto;
+}
+
+div.title {
+background: #404448;
+width: 100%;
+}
+
+div.headerimg {
+border: 2px solid black;
+background-image: url(../img/header_fill.png);
+background-repeat: repeat-x;
+}
+
+div.menu {
+border-left: 2px solid black;
+border-right: 2px solid black;
+border-bottom: 2px solid black;
+overflow: hidden;
+padding-top: 5px;
+padding-bottom: 5px;
+padding-left: 2px;
+}
+
+a.menuitem {
+border-left: 1px solid white;
+padding-left: 5pt;
+padding-right: 5pt;
+float:right;
+}
+
+a.menuitem:link {
+color: white;
+text-decoration: none;
+}
+
+a.menuitem:visited {
+color: white;
+text-decoration: none;
+}
+
+a.menuitem:active {
+color: white;
+text-decoration: none;
+}
+
+img.rheader {
+float: right;
+}
+
+h1 {
+color: #f09300
+}
+
+div.content {
+border-left: 2px solid black;
+border-right: 2px solid black;
+border-bottom: 2px solid black;
+padding: 20px;
+background: white;
+}
+
+form fieldset {
+margin-bottom: 10px;
+border: none;
+}
+form legend {
+font-weight: bold;
+}
+form label {
+display: inline-block;
+line-height: 1.8;
+width: 120px; /* Width of labels */
+}
+form fieldset ol {
+margin: 0;
+padding-left: 10px;
+padding-top: 10px;
+}
+form fieldset li {
+list-style: none;
+}
+form fieldset fieldset {
+border: none;
+margin: 3px 0 0;
+}
+p.footer {
+text-align: right;
+font-size: small;
+}
