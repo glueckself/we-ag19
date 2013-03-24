@@ -89,7 +89,7 @@ $(function() {
         commonVerify();
     })
 
-    $('input#passwd').change('change keypress paste input textInput',function() {
+    $('input#passwd').on('change keypress paste input textInput',function() {
         var value;
 
         value=$(this).val();
