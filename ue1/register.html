@@ -1,43 +1,16 @@
-<html>
+<?xml version="1.0" encoding="utf-8" ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>Formel 0 - Registrieren</title>
-    <script type="text/javascript" src="js/jquery.js">
-    <script type="text/javascript">
-      var dateValid=0;
-      var userValid=0;
-      var passwordValid=0;
-
-      function commonVerify() {
-        if(dateValid == 0)
-          return;
-
-        if(userValid == 0)
-          return;
-
-        if(passwordValid == 0)
-          return;
-
-      }
-
-function verifyUser() {
-
-}
-
-function verifyPassword() {
-
-}
-
-function verifyBirthday() {
-
-}
-
-    </script>
+    <script type="text/javascript" src="js/jquery.js" ></script>
   </head>
   <body>
     <div class="title">
       <div class="headerimg">
-        <img src="img/header_left.png"></img>
-        <img src="img/header_right.png"></img>
+        <img src="img/header_left.png" alt="titel links"></img>
+        <img src="img/header_right.png" alt="titel rechts"></img>
       </div>
       <a href="">Einloggen</a>
     </div>
@@ -46,22 +19,90 @@ function verifyBirthday() {
       <p>
       Bitte f&uuml;llen Sie das unten stehende Formular aus!
       </p>
-      <form method="POST">
-        <h2>Pers&ouml;nliche Daten</h2>
-        <input type="text" name="vname" id="vname" />
-        <input type="text" name="nname" id="nname" />
-        <input type="text" name="gbtag" id="gbtag" />
-        <select name="geschlecht" id="geschlecht">
-          <option>weiblich</option>
-          <option>m&auml;nnlich</option>
-        </select>
+      <form method="post" action="register.php">
+        <div>
+          <h2>Pers&ouml;nliche Daten</h2>
+          <input type="text" name="vname" id="vname" />
+          <input type="text" name="nname" id="nname" />
+          <input type="text" name="gbtag" id="gbtag" />
+          <select name="geschlecht" id="geschlecht">
+            <option>weiblich</option>
+            <option>m&auml;nnlich</option>
+          </select>
+        </div>
 
-        <h2>Login Daten</h2>
-        <input type="text" name="user" id="user"  />
-        <input type="password" name="passwd" id="passwd" />
-        <input type="submit" disabled="disabled" name="button" id="button" value="Registrieren" />
+        <div>
+          <h2>Login Daten</h2>
+          <input type="text" name="user" id="user"  />
+          <input type="password" name="passwd" id="passwd" />
+          <input type="submit" disabled="disabled" name="button" id="button" value="Registrieren" />
+        </div>
       </form>
     </div>
+    <script type="text/javascript">
+      var dateRegex = /(\d{1,2}\.\d{1,2}\.\d{4})/gm; 
+      var dateValid=0;
+      var userValid=0;
+      var passwordValid=0;
+
+      function commonVerify() {
+        if(dateValid == 0) {
+          $('input#button').attr("disabled","disabled");
+          return;
+        }
+
+        if(userValid == 0) {
+          $('input#button').attr("disabled","disabled");
+          return;
+        }
+
+        if(passwordValid == 0) {
+          $('input#button').attr("disabled","disabled");
+          return;
+        }
+
+        $('input#button').removeAttr("disabled");
+
+      }
+
+$(function() {
+    $('input#gbtag').on('change keypress paste input textInput',function() {
+      var value;
+
+      value=$(this.val)
+        if($(this).val().match(dateRegex) != null)
+            dateValid=1;
+        else
+            dateValid=0;
+        commonVerify();
+    })
+
+    $('input#user').on('change keypress paste input textInput',function() {
+        var value;
+
+        value=$(this).val();
+        if(value.length >= 4 && value.length <= 8)
+            userValid=1;
+        else
+        userValid=0;
+
+        commonVerify();
+    })
+
+    $('input#passwd').change('change keypress paste input textInput',function() {
+        var value;
+
+        value=$(this).val();
+        if(value.length >= 4 && value.length <= 8)
+            passwordValid=1;
+        else
+        passwordValid=0;
+
+        commonVerify();
+    })
+})
+
+    </script>
   </body>
 </html>
         
