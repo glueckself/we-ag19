@@ -1,0 +1,67 @@
+<html>
+  <head>
+    <title>Formel 0 - Registrieren</title>
+    <script type="text/javascript" src="js/jquery.js">
+    <script type="text/javascript">
+      var dateValid=0;
+      var userValid=0;
+      var passwordValid=0;
+
+      function commonVerify() {
+        if(dateValid == 0)
+          return;
+
+        if(userValid == 0)
+          return;
+
+        if(passwordValid == 0)
+          return;
+
+      }
+
+function verifyUser() {
+
+}
+
+function verifyPassword() {
+
+}
+
+function verifyBirthday() {
+
+}
+
+    </script>
+  </head>
+  <body>
+    <div class="title">
+      <div class="headerimg">
+        <img src="img/header_left.png"></img>
+        <img src="img/header_right.png"></img>
+      </div>
+      <a href="">Einloggen</a>
+    </div>
+    <div class="content">
+      <h1>Registrieren</h1>
+      <p>
+      Bitte f&uuml;llen Sie das unten stehende Formular aus!
+      </p>
+      <form method="POST">
+        <h2>Pers&ouml;nliche Daten</h2>
+        <input type="text" name="vname" id="vname" />
+        <input type="text" name="nname" id="nname" />
+        <input type="text" name="gbtag" id="gbtag" />
+        <select name="geschlecht" id="geschlecht">
+          <option>weiblich</option>
+          <option>m&auml;nnlich</option>
+        </select>
+
+        <h2>Login Daten</h2>
+        <input type="text" name="user" id="user"  />
+        <input type="password" name="passwd" id="passwd" />
+        <input type="submit" disabled="disabled" name="button" id="button" value="Registrieren" />
+      </form>
+    </div>
+  </body>
+</html>
+        
