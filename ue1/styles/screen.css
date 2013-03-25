@@ -4,7 +4,7 @@ body {
 }
 
 div.site {
-min-width: 100px;
+min-width: 542px;
 max-width: 1000px;
 margin-left: auto;
 margin-right: auto;
@@ -114,11 +114,19 @@ div.field {
   color: white;
 }
 
+#racetrack-container {
+  margin: 0 auto;
+  width: 606px;
+}
+
 #racetrack {
   list-style-type: none;
-  margin: 0 auto;
   padding: 0;
-  width: 150px;
+  margin: 0;
+  position: relative;
+  left: 50%;
+  margin-left: -61px;
+  width: 123px;
 }
 
 #racetrack li {
