@@ -141,6 +141,14 @@ div.field {
   height: 98px;
 }
 
+#car1 {
+  margin-left: 16px;
+}
+
+#car2 {
+  margin-left: 71px;
+}
+
 #die {
   float: right;
   margin: 0;
