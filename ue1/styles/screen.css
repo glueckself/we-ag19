@@ -68,6 +68,23 @@ padding: 20px;
 background: white;
 }
 
+div#die {
+  padding: 5px;
+  width: 120px;
+  height: 120px;
+  border: 2px solid #f9c228;
+  background: #404448;
+  color: white;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: larger;
+  text-align: center;
+}
+
+div#die p {
+  margin: 0;
+  margin-bottom: 7px;
+}
+
 form fieldset {
 margin-bottom: 10px;
 border: none;
