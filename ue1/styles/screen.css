@@ -71,7 +71,7 @@ background: white;
 div.field {
   background-image: url(../img/field_background.png);
   background-repeat: repeat-both;
-  padding: 0;
+  padding: 16px;
 }
 
 #gameinfo {
@@ -82,6 +82,8 @@ div.field {
   width: 210px;
   height: 210px;
   margin: 0;
+  margin-top: -16px;
+  margin-left: -16px;
   padding: 15px;
   border: 2px solid black;
   border-left: none;
@@ -114,11 +116,9 @@ div.field {
 
 #racetrack {
   list-style-type: none;
-  margin: 0;
-  margin-left: auto;
-  margin-right: auto;
-  width: 150px;
+  margin: 0 auto;
   padding: 0;
+  width: 150px;
 }
 
 #racetrack li {
@@ -152,20 +152,20 @@ div.field {
 #die {
   float: right;
   margin: 0;
-  padding: 5px;
-  width: 120px;
-  height: 120px;
+  padding: 2px;
+  width: 116px;
+  height: 116px;
   border: 2px solid #f9c228;
   background: #404448;
   color: white;
   font-family: Helvetica, Arial, sans-serif;
-  font-size: larger;
+  font-size: 18px;
   text-align: center;
 }
 
 #die p {
   margin: 0;
-  margin-bottom: 7px;
+  margin-bottom: 6px;
 }
 
 form fieldset {
