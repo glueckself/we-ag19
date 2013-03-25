@@ -75,6 +75,8 @@ div.field {
 
 #racetrack {
   list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 #racetrack li {
@@ -97,7 +99,9 @@ div.field {
   height: 98px;
 }
 
-div#die {
+#die {
+  float: right;
+  margin: 0;
   padding: 5px;
   width: 120px;
   height: 120px;
@@ -109,7 +113,7 @@ div#die {
   text-align: center;
 }
 
-div#die p {
+#die p {
   margin: 0;
   margin-bottom: 7px;
 }
