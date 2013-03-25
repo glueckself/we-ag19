@@ -73,6 +73,30 @@ div.field {
   background-repeat: repeat-both;
 }
 
+#racetrack {
+  list-style-type: none;
+}
+
+#racetrack li {
+  background-image: url(../img/empty_road.png);
+  width: 123px;
+  height: 80px;
+}
+
+#racetrack li.oil {
+  background-image: url(../img/oil_road.png);
+}
+
+#racetrack li:first-child {
+  background-image: url(../img/start_road.png);
+  height: 98px;
+}
+
+#racetrack li:last-child {
+  background-image: url(../img/finish_road.png);
+  height: 98px;
+}
+
 div#die {
   padding: 5px;
   width: 120px;
