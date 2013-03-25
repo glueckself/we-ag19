@@ -68,6 +68,11 @@ padding: 20px;
 background: white;
 }
 
+div.field {
+  background-image: url(../img/field_background.png);
+  background-repeat: repeat-both;
+}
+
 div#die {
   padding: 5px;
   width: 120px;
