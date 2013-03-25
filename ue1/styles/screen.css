@@ -71,11 +71,53 @@ background: white;
 div.field {
   background-image: url(../img/field_background.png);
   background-repeat: repeat-both;
+  padding: 0;
+}
+
+#gameinfo {
+  float:left;
+  background: #404448;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: smaller;
+  width: 210px;
+  height: 210px;
+  margin: 0;
+  padding: 15px;
+  border: 2px solid black;
+  border-left: none;
+  border-top: none;
+  overflow: hidden;
+}
+
+#gameinfo h1 {
+  font-size: larger;
+  font-weight: normal;
+  margin: 0;
+}
+
+#gameinfo table {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+#gameinfo th {
+  color: #f09300;
+  text-align: left;
+  font-weight: normal;
+  line-height: 1.4;
+  padding-right: 10px;
+}
+
+#gameinfo td {
+  color: white;
 }
 
 #racetrack {
   list-style-type: none;
   margin: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 150px;
   padding: 0;
 }
 
