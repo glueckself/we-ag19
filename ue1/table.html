@@ -26,15 +26,15 @@
           <img src="img/header_fill.png" alt="Formel 0 Banner - Stra&szlig;e (Teil 2)" class="headerfill"></img>
           <img src="img/header_right.png" alt="Formel 0 Banner - Stra&szlig;enende (Teil 3)" class="rheader"></img>
         </div>
-        <div class="menu">
-          <a class="menuitem" href="table.html">Neues Spiel</a>
-          <a class="menuitem" href="register.html">Ausloggen</a>
-        </div>
+        <ul class="menu">
+          <li><a class="menuitem" href="table.html">Neues Spiel</a></li>
+          <li><a class="menuitem" href="register.html">Ausloggen</a></li>
+        </ul>
       </div>
       <div class="content field">
         <div id="gameinfo">
-          <h1>Spielinformationen</h1>
-          <table>
+          <table summary="Aktueller Spielstand">
+            <caption>Spielinformationen</caption>
             <tr>
               <th>F&uuml;hrender</th>
               <td>Super C</td>
@@ -52,8 +52,9 @@
               <td>3</td>
             </tr>
           </table>
-          <h1>Spieler</h1>
-          <table>
+          
+          <table summary="Aktuelle Spieler">
+            <caption>Spieler</caption>
             <tr>
               <th>Spieler 1</th>
               <td>Super Mario</td>
@@ -64,9 +65,9 @@
             </tr>
           </table>
         </div>
-        <div id="dice">
+        <div id="currentplayer">
           <p>Super Mario</p>
-          <a href="#" onclick="execDice();"><img src="img/wuerfel1.png" alt="W&uuml;rfel mit Augenzahl 1" ></img></a>
+          <a href="#" onclick="execDice();"><img id="dice" src="img/wuerfel1.png" alt="W&uuml;rfel mit Augenzahl 1" ></img></a>
         </div>
         <div id="racetrack-container">
           <ol id="racetrack">
@@ -89,7 +90,7 @@
             </li>
             
             <li id="pos6">
-                <img id="oil1" class="oil" src="img/oil_road.png" alt="&Ouml;lfleck"></img>
+                <img id="oil2" class="oil" src="img/oil_road.png" alt="&Ouml;lfleck"></img>
             </li>
             
             <li id="pos7">

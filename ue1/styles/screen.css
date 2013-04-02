@@ -1,3 +1,16 @@
+/* main */
+h1 {
+    color: #f09300
+}
+
+div.content {
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+    padding: 20px;
+    background: white;
+}
+
 body {
   background: #aaaaaa;
   font-family: Helvetica, Arial, sans-serif;
@@ -21,7 +34,8 @@ background-image: url(../img/header_fill.png);
 background-repeat: repeat-x;
 }
 
-div.menu {
+/* menu */
+ul.menu {
 border-left: 2px solid black;
 border-right: 2px solid black;
 border-bottom: 2px solid black;
@@ -29,6 +43,8 @@ overflow: hidden;
 padding-top: 5px;
 padding-bottom: 5px;
 padding-left: 2px;
+margin: auto;
+list-style-type: none;
 }
 
 a.menuitem {
@@ -50,23 +66,10 @@ text-decoration: none;
 
 a.menuitem:active {
 color: white;
-text-decoration: none;
 }
 
 img.rheader {
 float: right;
-}
-
-h1 {
-color: #f09300
-}
-
-div.content {
-border-left: 2px solid black;
-border-right: 2px solid black;
-border-bottom: 2px solid black;
-padding: 20px;
-background: white;
 }
 
 div.field {
@@ -75,6 +78,7 @@ div.field {
   padding: 16px;
 }
 
+/* game info */
 #gameinfo {
   float:left;
   background: #404448;
@@ -91,10 +95,12 @@ div.field {
   overflow: hidden;
 }
 
-#gameinfo h1 {
+#gameinfo table caption {
   font-size: larger;
   font-weight: normal;
   margin: 0;
+  text-align: left;
+  color: #f09300;
 }
 
 #gameinfo table {
@@ -114,6 +120,7 @@ div.field {
   color: white;
 }
 
+/* game field */
 #racetrack-container {
   margin: 0 auto;
   width: 606px;
@@ -170,8 +177,8 @@ img.oil {
   height: 98px;
 }
 
-
-#dice {
+/* current player + dice */
+#currentplayer {
   float: right;
   margin: 0;
   padding: 2px;
@@ -184,11 +191,12 @@ img.oil {
   text-align: center;
 }
 
-#dice p {
+#currentplayer p {
   margin: 0;
   margin-bottom: 6px;
 }
 
+/* registration form */
 form fieldset {
 margin-bottom: 10px;
 border: none;
@@ -197,10 +205,9 @@ form legend {
 font-weight: bold;
 }
 form label {
-width: 200px; /* Width of labels */
+width: 200px;
 float: left;
 clear: left;
-
 }
 
 form fieldset ol {
@@ -222,6 +229,7 @@ text-align: right;
 font-size: small;
 }
 
+/* error display */
 .warning-ok {
 	display: none;
 }
