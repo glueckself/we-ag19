@@ -41,6 +41,7 @@
 				$("#benutzername").keyup(function() {
 					if (validateBenutzername()) {
 						$("#warning-benutzername").css("display", "none");
+						$("#warning-benutzername").css("display", "inline");
 						$("#benutzername").css("background-color", "white");
 
 						if (validatePasswort() && validateGeburtstag()) {
@@ -120,9 +121,7 @@
 						</p>
 						<p>
 							<label for="geburtstag">Geburtstag</label>
-							<input type="text" id="geburtstag" />
-							<span id="warning-geburtstag">Verwenden Sie bitte folgendes Datumsformat: dd.mm.yyyy (z.B. 24.12.2012).</span>
-						</p>
+							<input type="text" id="geburtstag" /></p>
 						<p>
 							<label for="geschlecht">Geschlecht</label>
 							<select id="geschlecht">

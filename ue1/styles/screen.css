@@ -71,7 +71,7 @@ background: white;
 
 div.field {
   background-image: url(../img/field_background.png);
-  background-repeat: repeat-both;
+  background-repeat: repeat;
   padding: 16px;
 }
 
@@ -139,12 +139,12 @@ div.field {
   background-image: url(../img/oil_road.png);
 }
 
-#racetrack li:first-child {
+#racetrack li.first {
   background-image: url(../img/start_road.png);
   height: 98px;
 }
 
-#racetrack li:last-child {
+#racetrack li.last {
   background-image: url(../img/finish_road.png);
   height: 98px;
 }
@@ -183,10 +183,12 @@ form legend {
 font-weight: bold;
 }
 form label {
-display: inline-block;
-line-height: 1.8;
-width: 120px; /* Width of labels */
+width: 200px; /* Width of labels */
+float: left;
+clear: left;
+
 }
+
 form fieldset ol {
 margin: 0;
 padding-left: 10px;
@@ -194,12 +196,29 @@ padding-top: 10px;
 }
 form fieldset li {
 list-style: none;
+line-height: 1.8;
 }
 form fieldset fieldset {
 border: none;
 margin: 3px 0 0;
 }
+
 p.footer {
 text-align: right;
 font-size: small;
 }
+
+.warning-ok {
+	display: none;
+}
+
+.warning-show {
+	color: red;
+	font-weight: bold;
+    display: inline;
+}
+
+.input-wrong {
+    background: red;
+}
+

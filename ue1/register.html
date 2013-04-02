@@ -1,18 +1,118 @@
 <?xml version="1.0" encoding="utf-8" ?> 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>Formel 0 - Registrieren</title>
     <script type="text/javascript" src="js/jquery.js" ></script>
     <link href="styles/screen.css" rel="stylesheet" />
+    <script type="text/javascript">
+      var dateRegex = /(\d{1,2}\.\d{1,2}\.\d{4})/gm; 
+      var dateValid=true;
+      var userValid=null;
+      var passwordValid=null;
+
+      /* this needs to be != true, because null != true is true, but null == false not! */
+      function commonVerify() {
+        if(dateValid != true) {
+          $('input#button').attr("disabled","disabled");
+          return;
+        }
+
+        if(userValid != true) {
+          $('input#button').attr("disabled","disabled");
+          return;
+        }
+
+        if(passwordValid != true) {
+          $('input#button').attr("disabled","disabled");
+          return;
+        }
+
+        $('input#button').removeAttr("disabled");
+      }
+      
+      function inputStatus(field, message, status) {
+          if(status) {
+            $(message).addClass("warning-ok")
+                      .removeClass("warning-show");
+            $(field).removeClass("input-wrong");
+          } else {
+            $(message).removeClass("warning-ok")
+                      .addClass("warning-show");
+            $(field).addClass("input-wrong");
+          }
+      }
+
+$(function() {
+    $('input#gbtag').on('change keypress paste input textInput',function() {
+      var value;
+      var newValid;
+
+      value=$(this).val();
+      if(value != "") {
+        if(value.match(dateRegex) != null) {
+            newValid=true;  
+        } else {
+            newValid=false;
+        }
+      } else {
+        newValid=true;
+      }
+      
+      if(newValid == dateValid)
+        return;
+        
+      dateValid=newValid;
+      inputStatus(this,"span#gbtag-warn",dateValid);
+      commonVerify();
+    })
+
+    $('input#user').on('change keypress paste input textInput',function() {
+        var value;
+        var newValid;
+
+        value=$(this).val();
+        if(value.length >= 4 && value.length <= 8)        
+            newValid=true;
+        else
+            newValid=false;
+        
+        if(newValid == userValid)
+            return;
+            
+        userValid=newValid;
+        inputStatus(this,"span#user-warn",userValid);
+        commonVerify();
+    })
+
+    $('input#passwd').on('change keypress paste input textInput',function() {
+        var value;
+        var newValid;
+
+        value=$(this).val();
+        if(value.length >= 4 && value.length <= 8)        
+            newValid=true;
+        else
+            newValid=false;
+        
+        if(newValid == passwordValid)
+            return;
+            
+        passwordValid=newValid;
+        inputStatus(this,"span#passwd-warn",passwordValid);
+        commonVerify();
+    })
+})
+    </script>
   </head>
   <body>
     <div class="site">
       <div class="title">
         <div class="headerimg">
-          <img src="img/header_left.png" alt="titel links" class="lheader"></img>
-          <img src="img/header_right.png" alt="titel rechts" class="rheader"></img>
+          <img src="img/header_left.png" alt="Formel 0 Logo - Orangenes Auto auf Stra&szlig;e" class="lheader"></img>
+          <img src="img/header_right.png" alt="Teil des Formel 0 Logos - Stra&szlig;enst&uuml;ck" class="rheader"></img>
         </div>
         <div class="menu">
           <a class="menuitem" href="table.html">Einloggen</a>
@@ -23,7 +123,7 @@
         <p>
         Bitte f&uuml;llen Sie das unten stehende Formular aus!
         </p>
-        <form method="post" action="register.php">
+        <form method="post" action="#">
             <fieldset>
               <legend>Pers&ouml;nliche Daten</legend>
               <ol>
@@ -38,6 +138,7 @@
                 <li>
                   <label for="gbtag">Geburtsdatum</label>
                   <input type="text" name="gbtag" id="gbtag" title="Geburtsdatum" />
+                  <span class="warning-ok" id="gbtag-warn">Verwenden Sie bitte folgendes Datumsformat: dd.mm.yyyy (z.B. 24.12.2012).</span>
                 </li>
                 <li>
                   <label for="geschlecht">Geschlecht</label>
@@ -48,101 +149,39 @@
                   </li>
                 </ol>
               </fieldset>
+              
               <fieldset>
                 <legend>Login Daten</legend>
                 <ol>
                   <li>
                     <label for="user">Benutzername</label>
                     <input type="text" name="user" id="user" title="Benutzername" />
+                    <span class="warning-ok" id="user-warn">Der Benutzername muss mindestens 4 Zeichen und darf maximal 8 Zeichen enthalten.</span>
                   </li>
                   <li>
                     <label for="passwd">Passwort</label>
                     <input type="password" name="passwd" id="passwd" title="Passwort"/>
+                    <span class="warning-ok" id="passwd-warn">Das Passwort muss mindestens 4 Zeichen und darf maximal 8 Zeichen enthalten.</span>
                   </li>
                 </ol>
             </fieldset>
+            
             <fieldset>
               <input type="submit" disabled="disabled" name="button" id="button" value="Registrieren" />
             </fieldset>
           </form>
+          
           <noscript>
-            Das Feld Geburtsdatum muss im Format dd.mm.yyyy sein. <br/>
-            Die Felder Benutzername und Passwort m&uuml;ssen mindestens 4, h&ouml;chstens 8 Zeichen lang sein.
+              <p>
+                Das Feld Geburtsdatum muss im Format dd.mm.yyyy sein. <br/>
+                Die Felder Benutzername und Passwort m&uuml;ssen mindestens 4, h&ouml;chstens 8 Zeichen lang sein.
+              </p>
           </noscript>
       </div>
       <p class="footer">
         &copy; 2013 Formel 0
       </p>
     </div>
-    <script type="text/javascript">
-      var dateRegex = /(\d{1,2}\.\d{1,2}\.\d{4})/gm; 
-      var dateValid=1;
-      var userValid=0;
-      var passwordValid=0;
-
-      function commonVerify() {
-        if(dateValid == 0) {
-          $('input#button').attr("disabled","disabled");
-          return;
-        }
-
-        if(userValid == 0) {
-          $('input#button').attr("disabled","disabled");
-          return;
-        }
-
-        if(passwordValid == 0) {
-          $('input#button').attr("disabled","disabled");
-          return;
-        }
-
-        $('input#button').removeAttr("disabled");
-
-      }
-
-$(function() {
-    $('input#gbtag').on('change keypress paste input textInput',function() {
-      var value;
-
-      value=$(this).val();
-      if(value != "") {
-        if(value.match(dateRegex) != null) {
-            dateValid=1;  
-        } else {
-            dateValid=0;
-        }
-      } else {
-        dateValid=1;
-      }
-      commonVerify();
-    })
-
-    $('input#user').on('change keypress paste input textInput',function() {
-        var value;
-
-        value=$(this).val();
-        if(value.length >= 4 && value.length <= 8)
-            userValid=1;
-        else
-        userValid=0;
-
-        commonVerify();
-    })
-
-    $('input#passwd').on('change keypress paste input textInput',function() {
-        var value;
-
-        value=$(this).val();
-        if(value.length >= 4 && value.length <= 8)
-            passwordValid=1;
-        else
-        passwordValid=0;
-
-        commonVerify();
-    })
-})
-
-    </script>
   </body>
 </html>
         
