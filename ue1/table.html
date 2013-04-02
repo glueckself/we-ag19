@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de">
   <head>
     <title>Formel 0 - Spielen</title>
     <script type="text/javascript" src="js/jquery.js" ></script>
     <link href="styles/screen.css" rel="stylesheet" />
+    <script type="text/javascript">
+    function execDice() {
+        $("img#car1").fadeOut(400,function() {
+            var img=$(this).detach();
+            img.appendTo("li#pos1");
+            img.fadeIn(400, function() {
+                return;
+            });
+        });
+    }   
+    </script>
   </head>
   <body>
     <div class="site">
@@ -53,9 +64,9 @@
             </tr>
           </table>
         </div>
-        <div id="die">
+        <div id="dice">
           <p>Super Mario</p>
-          <img src="img/wuerfel1.png" alt="W&uuml;rfel mit Augenzahl 1" ></img>
+          <a href="#" onclick="execDice();"><img src="img/wuerfel1.png" alt="W&uuml;rfel mit Augenzahl 1" ></img></a>
         </div>
         <div id="racetrack-container">
           <ol id="racetrack">
@@ -66,19 +77,19 @@
             </li>
             
             <li id="pos3">
-                <img id="oil1" src="img/oil_road.png" alt="&Ouml;lfleck"></img>
-                <img id="car1" src="img/car1.png" alt="Auto von Spieler 1" ></img>
+                <img id="oil1" class="oil" src="img/oil_road.png" alt="&Ouml;lfleck"></img>
+                <img id="car1" class="car" src="img/car1.png" alt="Auto von Spieler 1" ></img>
             </li>
             
             <li id="pos4">
             </li>
             
             <li id="pos5">
-                <img id="car2" src="img/car2.png" alt="Auto von Spieler 2" ></img>
+                <img id="car2" class="car" src="img/car2.png" alt="Auto von Spieler 2" ></img>
             </li>
             
             <li id="pos6">
-                <img id="oil1" src="img/oil_road.png" alt="&Ouml;lfleck"></img>
+                <img id="oil1" class="oil" src="img/oil_road.png" alt="&Ouml;lfleck"></img>
             </li>
             
             <li id="pos7">

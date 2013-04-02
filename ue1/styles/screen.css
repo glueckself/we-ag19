@@ -119,6 +119,25 @@ div.field {
   width: 606px;
 }
 
+
+img.car {
+    top: 10px;
+}
+
+img.oil {
+    top: 0px;
+}
+
+#car1 {
+    float: left;
+    margin-left: 16px;
+}
+
+#car2 {
+    float: left;
+    margin-left: 71px;
+}
+
 #racetrack {
   list-style-type: none;
   padding: 0;
@@ -131,8 +150,14 @@ div.field {
 
 #racetrack li {
   background-image: url(../img/empty_road.png);
+  position: relative;
   width: 123px;
   height: 80px;
+}
+
+#racetrack li img {
+    position: absolute;
+    left: 0px;
 }
 
 #racetrack li#pos1 {
@@ -145,17 +170,8 @@ div.field {
   height: 98px;
 }
 
-#car1 {
-  float: left;
-  margin-left: 16px;
-}
 
-#car2 {
-  float: left;
-  margin-left: 71px;
-}
-
-#die {
+#dice {
   float: right;
   margin: 0;
   padding: 2px;
@@ -168,7 +184,7 @@ div.field {
   text-align: center;
 }
 
-#die p {
+#dice p {
   margin: 0;
   margin-bottom: 6px;
 }
@@ -211,11 +227,15 @@ font-size: small;
 }
 
 .warning-show {
-	color: red;
+    color: red;
     display: inline;
 }
 
 .input-wrong {
     background: red;
+}
+
+.warning-show em {
+    font-style: normal;
 }
 
