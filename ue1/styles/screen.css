@@ -15,7 +15,7 @@ background: #404448;
 width: 100%;
 }
 
-div.headerimg {
+div.header {
 border: 2px solid black;
 background-image: url(../img/header_fill.png);
 background-repeat: repeat-x;
@@ -135,25 +135,23 @@ div.field {
   height: 80px;
 }
 
-#racetrack li.oil {
-  background-image: url(../img/oil_road.png);
-}
-
-#racetrack li.first {
+#racetrack li#pos1 {
   background-image: url(../img/start_road.png);
   height: 98px;
 }
 
-#racetrack li.last {
+#racetrack li#pos7 {
   background-image: url(../img/finish_road.png);
   height: 98px;
 }
 
 #car1 {
+  float: left;
   margin-left: 16px;
 }
 
 #car2 {
+  float: left;
   margin-left: 71px;
 }
 
@@ -214,7 +212,6 @@ font-size: small;
 
 .warning-show {
 	color: red;
-	font-weight: bold;
     display: inline;
 }
 

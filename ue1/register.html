@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
 "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de">
   <head>
     <title>Formel 0 - Registrieren</title>
     <script type="text/javascript" src="js/jquery.js" ></script>
@@ -46,6 +46,11 @@
       }
 
 $(function() {
+    $('input#button').attr("disabled","disabled");
+    $('span#passwd-warn').addClass("warning-ok");
+    $('span#user-warn').addClass("warning-ok");
+    $('span#gbtag-warn').addClass("warning-ok");
+    
     $('input#gbtag').on('change keypress paste input textInput',function() {
       var value;
       var newValid;
@@ -110,9 +115,10 @@ $(function() {
   <body>
     <div class="site">
       <div class="title">
-        <div class="headerimg">
-          <img src="img/header_left.png" alt="Formel 0 Logo - Orangenes Auto auf Stra&szlig;e" class="lheader"></img>
-          <img src="img/header_right.png" alt="Teil des Formel 0 Logos - Stra&szlig;enst&uuml;ck" class="rheader"></img>
+        <div class="header">
+          <img src="img/header_left.png" alt="Formel 0 Banner - Auto und Titel (Teil 1)" class="lheader"></img>
+          <img src="img/header_fill.png" alt="Formel 0 Banner - Stra&szlig;e (Teil 2)" class="headerfill"></img>
+          <img src="img/header_right.png" alt="Formel 0 Banner - Stra&szlig;enende (Teil 3)" class="rheader"></img>
         </div>
         <div class="menu">
           <a class="menuitem" href="table.html">Einloggen</a>
@@ -138,7 +144,7 @@ $(function() {
                 <li>
                   <label for="gbtag">Geburtsdatum</label>
                   <input type="text" name="gbtag" id="gbtag" title="Geburtsdatum" />
-                  <span class="warning-ok" id="gbtag-warn">Verwenden Sie bitte folgendes Datumsformat: dd.mm.yyyy (z.B. 24.12.2012).</span>
+                  <span id="gbtag-warn"><em>Verwenden Sie bitte folgendes Datumsformat: dd.mm.yyyy (z.B. 24.12.2012).</em></span>
                 </li>
                 <li>
                   <label for="geschlecht">Geschlecht</label>
@@ -156,27 +162,20 @@ $(function() {
                   <li>
                     <label for="user">Benutzername</label>
                     <input type="text" name="user" id="user" title="Benutzername" />
-                    <span class="warning-ok" id="user-warn">Der Benutzername muss mindestens 4 Zeichen und darf maximal 8 Zeichen enthalten.</span>
+                    <span id="user-warn"><em>Der Benutzername muss mindestens 4 Zeichen und darf maximal 8 Zeichen enthalten.</em></span>
                   </li>
                   <li>
                     <label for="passwd">Passwort</label>
                     <input type="password" name="passwd" id="passwd" title="Passwort"/>
-                    <span class="warning-ok" id="passwd-warn">Das Passwort muss mindestens 4 Zeichen und darf maximal 8 Zeichen enthalten.</span>
+                    <span id="passwd-warn"><em>Das Passwort muss mindestens 4 Zeichen und darf maximal 8 Zeichen enthalten.</em></span>
                   </li>
                 </ol>
             </fieldset>
             
             <fieldset>
-              <input type="submit" disabled="disabled" name="button" id="button" value="Registrieren" />
+              <input type="submit" name="button" id="button" value="Registrieren" />
             </fieldset>
           </form>
-          
-          <noscript>
-              <p>
-                Das Feld Geburtsdatum muss im Format dd.mm.yyyy sein. <br/>
-                Die Felder Benutzername und Passwort m&uuml;ssen mindestens 4, h&ouml;chstens 8 Zeichen lang sein.
-              </p>
-          </noscript>
       </div>
       <p class="footer">
         &copy; 2013 Formel 0
