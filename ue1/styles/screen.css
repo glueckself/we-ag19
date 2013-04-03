@@ -156,7 +156,6 @@ img.oil {
 }
 
 #racetrack li {
-  background-image: url(../img/empty_road.png);
   position: relative;
   width: 123px;
   height: 80px;
@@ -168,12 +167,10 @@ img.oil {
 }
 
 #racetrack li#pos1 {
-  background-image: url(../img/start_road.png);
   height: 98px;
 }
 
 #racetrack li#pos7 {
-  background-image: url(../img/finish_road.png);
   height: 98px;
 }
 
