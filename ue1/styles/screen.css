@@ -4,9 +4,9 @@ h1 {
 }
 
 div.content {
-    border-left: 2px solid black;
-    border-right: 2px solid black;
-    border-bottom: 2px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
     padding: 20px;
     background: white;
 }
@@ -29,28 +29,32 @@ width: 100%;
 }
 
 div.header {
-border: 2px solid black;
+border: 1px solid black;
 background-image: url(../img/header_fill.png);
 background-repeat: repeat-x;
+height: 70px;
 }
 
 /* menu */
 ul.menu {
-border-left: 2px solid black;
-border-right: 2px solid black;
-border-bottom: 2px solid black;
+border-left: 1px solid black;
+border-right: 1px solid black;
+border-bottom: 1px solid black;
 overflow: hidden;
 padding-top: 5px;
 padding-bottom: 5px;
 padding-left: 2px;
 margin: auto;
 list-style-type: none;
+font-size: 12px;
+height: 16px;
 }
 
 a.menuitem {
 border-left: 1px solid white;
 padding-left: 5pt;
 padding-right: 5pt;
+padding-top: 2px;
 float:right;
 }
 
@@ -89,7 +93,7 @@ div.field {
   margin-top: -16px;
   margin-left: -16px;
   padding: 15px;
-  border: 2px solid black;
+  border: 1px solid black;
   border-left: none;
   border-top: none;
   overflow: hidden;
@@ -99,12 +103,13 @@ div.field {
   font-size: larger;
   font-weight: normal;
   margin: 0;
+  margin-bottom: 10px;
   text-align: left;
   color: #f09300;
 }
 
 #gameinfo table {
-  margin-top: 10px;
+  margin-top: 0px;
   margin-bottom: 20px;
 }
 
