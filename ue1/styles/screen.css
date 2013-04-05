@@ -35,6 +35,20 @@ background-repeat: repeat-x;
 height: 70px;
 }
 
+div.header h1 {
+  /*
+    Nach ausserhalb verschieben ist fuer Screen Reader besser als "display: none;".
+    Siehe http://juicystudio.com/article/screen-readers-display-none.php
+  */
+  position: absolute;
+  top: -999em;
+  /* display: none; */
+}
+
+img.headerfill {
+  display: none;
+}
+
 /* menu */
 ul.menu {
 border-left: 1px solid black;
