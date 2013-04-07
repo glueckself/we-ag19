@@ -45,6 +45,21 @@ div.header h1 {
   /* display: none; */
 }
 
+div.header div#rheader {
+    float: right;
+    clear: right;
+    height: 70px;
+    width: 40px;
+    background-image: url(../img/header_right.png);
+}
+
+div.header div#lheader {
+    float: left;
+    height: 70px;
+    width: 159px;
+    background-image: url(../img/header_left.png);
+}
+
 img.headerfill {
   display: none;
 }
@@ -84,10 +99,6 @@ text-decoration: none;
 
 a.menuitem:active {
 color: white;
-}
-
-img.rheader {
-float: right;
 }
 
 div.field {
