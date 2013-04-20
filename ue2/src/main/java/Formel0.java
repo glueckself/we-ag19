@@ -3,18 +3,23 @@
  */
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.*;
+import javax.servlet.http.*;
 /**
  *
  * @author srdj
  */
 public class Formel0 extends HttpServlet {
+    
+    private GameList formel0Games;
 
+    @Override
+    public void init()
+            throws ServletException {
+        super.init();
+        formel0Games = new GameList();
+    }
+    
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -27,22 +32,38 @@ public class Formel0 extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Formel0</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Formel0 at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } finally {            
-            out.close();
+        HttpSession session=request.getSession();
+        String redirectTarget;
+        
+        Formel0Game currentGame;
+        String command = request.getParameter("command");
+        
+        if(session.isNew()) {
+            formel0Games.createGame(session.getId());
         }
+        
+        if(command == "newGame") {
+            formel0Games.endGame(session.getId());
+            currentGame = formel0Games.createGame(session.getId());
+            redirectTarget = "index.jsp";
+        } else if (command == "dice") {
+            currentGame = formel0Games.getGame(session.getId());
+            for(int i=0; i< Formel0Game.NUM_PLAYERS; i++) {
+                currentGame.throwDice(i);
+            }
+            redirectTarget = "index.jsp";
+        } else if (command == "logout") {
+            formel0Games.endGame(session.getId());
+            redirectTarget = "logout.html";
+            currentGame = null;
+        } else {
+            currentGame = null;
+            redirectTarget = "error.html";
+        }
+        
+        RequestDispatcher view = request.getRequestDispatcher(redirectTarget);
+        request.setAttribute("game",currentGame);
+        view.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -83,6 +104,6 @@ public class Formel0 extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Controller for Formel0 game";
     }// </editor-fold>
 }
