@@ -1,3 +1,5 @@
+package Formel0;
+
 
 import java.util.Date;
 
@@ -12,23 +14,48 @@ import java.util.Date;
  */
 public class Formel0Bean {
     private int playerPos[];
+    private int playerPrevPos[];
     private int lastDiceNum[];
     
     private boolean gameFinished = false;
     private Date startTime;
-
+    
+    private String playerNames[];
+    
+    private int round;
     
     public Formel0Bean(int numPlayers) {
         lastDiceNum = new int[numPlayers];
+        playerPrevPos = new int[numPlayers];
         playerPos = new int[numPlayers];
+        playerNames = new String[numPlayers];
+        
+        playerNames[0]="Super Mario";
+        playerNames[1]="Super C";
+        
+        round=0;
         
         for(int i=0; i< numPlayers; i++) {
             playerPos[i]=0;
+            playerPrevPos[i]=-1;
             lastDiceNum[i]=-1;
         }
         
         startTime = new Date();
     }
+    
+    public int getRound() {
+        return round;
+    }
+    
+    public void nextRound() {
+        round++;
+    }
+    
+    public String getPlayerName(int index) {
+        return playerNames[index];
+    }
+    
     /**
      * @return the playerPos
      */
@@ -40,7 +67,12 @@ public class Formel0Bean {
      * @param playerPos the playerPos to set
      */
     public void setPlayerPos(int playerPos, int index) {
+        this.playerPrevPos[index] = this.playerPos[index];
         this.playerPos[index] = playerPos;
+    }
+    
+    public int getPlayerPrevPos(int index) {
+        return playerPrevPos[index];
     }
 
     /**

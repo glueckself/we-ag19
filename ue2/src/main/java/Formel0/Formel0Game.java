@@ -1,3 +1,5 @@
+package Formel0;
+
 /*
  * Model class
  */
@@ -7,6 +9,7 @@
  * @author srdj
  */
 
+import Formel0.Formel0Bean;
 import java.util.Random;
 
 public class Formel0Game {
@@ -20,9 +23,10 @@ public class Formel0Game {
             throw  new IllegalArgumentException("currentPlayer must be 0 <= currentPlayer < NUM_PLAYERS");
         
         Random rnd = new Random();
-        gameData.setLastDiceNum(rnd.nextInt(4)+1,currentPlayer);
+        int diceNum=rnd.nextInt(3)+1;
+        gameData.setLastDiceNum(diceNum,currentPlayer);
         
-        int nextPos = gameData.getPlayerPos(currentPlayer)+gameData.getLastDiceNum(currentPlayer);
+        int nextPos = gameData.getPlayerPos(currentPlayer)+diceNum;
         
         for(int i = 0; i < oilSpits.length; i++) {
             if(nextPos == oilSpits[i]) {

@@ -8,6 +8,8 @@
  * @author srdj
  */
 
+import Formel0.Formel0Game;
+import Formel0.Formel0Bean;
 import java.util.HashMap;
 
 public class GameList {
