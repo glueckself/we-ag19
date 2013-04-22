@@ -39,48 +39,67 @@
                     <div class="info">
                         <h2>Spielinformationen</h2>
                         <table summary="Diese Tabelle zeigt Informationen zum aktuellen Spiel">
-                            <tr><th id="leaderLabel" class="label">F&uuml;hrender</th><td id="leader" class="data">
+                            <tr>
+                                <th id="leaderLabel" class="label">F&uuml;hrender</th>
+                                <td id="leader" class="data">
                                     <%
-                                        int bestPlayer=0;
-                                        int currentMax=0;
+                                        int bestPlayer = 0;
+                                        int currentMax = 0;
+                                        int currentMaxCount = 0;
+
                                         for(int i = 0; i < Formel0Game.NUM_PLAYERS; i++) {
-                                            if(gameData.getPlayerPos(i) > currentMax) {
-                                                bestPlayer=i;
+                                            int pos = gameData.getPlayerPos(i);
+
+                                            if (pos > currentMax) {
+                                                bestPlayer = i;
+                                                currentMax = pos;
+                                                currentMaxCount = 1;
+                                            } else if (pos == currentMax) {
+                                                currentMaxCount++;
                                             }
                                         }
-                                        out.print(gameData.getPlayerName(bestPlayer));
+
+                                        if (currentMaxCount > 1) {
+                                            out.print("mehrere");
+                                        } else {
+                                            out.print(gameData.getPlayerName(bestPlayer));
+                                        }
                                     %>
-                                </td></tr>
-                                    <tr><th id="roundLabel" class="label">Runde</th><td id="round" class="data"><% out.print(Integer.toString(gameData.getRound())); %></td></tr>
-                            <tr>
-                                <th id="timeLabel" class="label">Zeit</th>
-                                <td id="time" class="data"><% out.print(new SimpleDateFormat("mm:ss").format(gameData.getGameDuration())); %></td>
+                                </td>
                             </tr>
                             <tr>
-                                <th id="computerScoreLabel" class="label">W&uuml;rfelergebnis <em><% out.print(gameData.getPlayerName(computerPlayer)); %></em></th>
-                                <td id="computerScore" class="data"><% out.print(Integer.toString(gameData.getLastDiceNum(computerPlayer))); %></td>
+                                <th id="roundLabel" class="label">Runde</th>
+                                <td id="round" class="data"><%= Integer.toString(gameData.getRound()) %></td>
+                            </tr>
+                            <tr>
+                                <th id="timeLabel" class="label">Zeit</th>
+                                <td id="time" class="data"><%= new SimpleDateFormat("mm:ss").format(gameData.getGameDuration()) %></td>
+                            </tr>
+                            <tr>
+                                <th id="computerScoreLabel" class="label">W&uuml;rfelergebnis <em><%= gameData.getPlayerName(computerPlayer) %></em></th>
+                                <td id="computerScore" class="data"><%= Integer.toString(gameData.getLastDiceNum(computerPlayer)) %></td>
                             </tr>
                         </table>  
                         <h2>Spieler</h2>
                         <table summary="Diese Tabelle listet die Namen der Spieler auf">
-                            <%
-                                for(int i=0; i<Formel0Game.NUM_PLAYERS; i++) {
-                                    out.print("<tr>");
-                                    out.print("<th id=\"player" + Integer.toString(i+1) + "NameLabel\" class=\"label\">Spieler " + Integer.toString(i+1) + "</th>");
-                                    out.print("<td id=\"player" + Integer.toString(i+1) + "Name\" class=\"data\">"+ gameData.getPlayerName(i) +"</td>");
-                                    out.print("</tr>");
-                                }
-                            %>
+                            <% for(int i=0; i<Formel0Game.NUM_PLAYERS; i++) { %>
+                                <tr>
+                                    <% String playerNum = Integer.toString(i+1); %>
+                                    <th id="player<%= playerNum %>NameLabel" class="label">Spieler <%= playerNum %></th>
+                                    <td id="player<%= playerNum %>Name" class="data"><%= gameData.getPlayerName(i) %></td>
+                                </tr>
+                            <% } %>
                         </table>    	  
                     </div>
                     <div class="field">
                         <h2 class="accessibility">Spielbereich</h2>
                         <ol id="road">
-                            <%      
+                            <%
                                 String liClass;
                                 int numOils=0;
                                 int posPlayer1 = gameData.getPlayerPos(0);
                                 int posPlayer2 = gameData.getPlayerPos(1);
+
                                 for(int i=0; i<Formel0Game.NUM_FIELDS; i++) {
                                     liClass="empty_road";
                                     if(numOils < Formel0Game.oilSpits.length) {
@@ -103,7 +122,9 @@
                                             out.println("<li class=\""+liClass+"\" id=\"road_"+Integer.toString(i+1)+"\"><span class=\"accessibility\">Feld "+Integer.toString(i+1) +"</span>");
                                             break;
                                     }
-                                    
+
+                                    // TODO: Oelfleck in Accessibility-Tag (?)
+
                                     if(i == posPlayer1) {
                                         out.println("<span id=\"player1\"><span class=\"accessibility\"><em>Spieler 1</em></span></span>");
                                         
@@ -122,21 +143,17 @@
                     </div>
                     <div class="player">
                         <h2 class="accessibility">W&uuml;rfelbereich</h2>
-                        <span class="accessibility">An der Reihe ist</span><div id="currentPlayerName"> <% out.print(gameData.getPlayerName(userPlayer)); %></div>
-                        <%
-                        if(!gameData.isGameFinished()) {
-                            out.print("<a id=\"dice\" href=\"?command=dice\" tabindex=\"4\">");
-                        }
-                        int diceNum = gameData.getLastDiceNum(userPlayer);
-                        if(diceNum == -1)
-                            diceNum=1;
-                        
-                        out.print("<img id=\"diceImage\" src=\"img/wuerfel"+ Integer.toString(diceNum) +".png\" alt=\"W&uuml;rfel mit einer "+ Integer.toString(diceNum)+"\" />");
-                        
-                            if(!gameData.isGameFinished()) {
-                                out.print("</a>");
-                            }
-                        %>
+                        <span class="accessibility">An der Reihe ist </span><div id="currentPlayerName"><%= gameData.getPlayerName(userPlayer) %></div>
+                        <% if(!gameData.isGameFinished()) { %>
+                            <a id="dice" href="?command=dice" tabindex="4">
+                        <% } %>
+
+                        <% int diceNum = gameData.getLastDiceNum(userPlayer); %>
+                        <img id="diceImage" src="img/wuerfel<%= diceNum %>.png" alt="W&uuml;rfel mit einer <%= diceNum %>" />
+
+                        <% if(!gameData.isGameFinished()) { %>
+                            </a>
+                        <% } %>
                     </div>
                 </div>
             </div>
@@ -161,14 +178,15 @@
                 $("body").append(div);
             }
             
-            $("#dice").click(function() {
-                prepareAnimation();
-                $("#player1").fadeOut(700, function() {
-                    $("#player1").appendTo("#start_road");
-                    $("#player1").fadeIn(700,completeAnimation);                    
-                });
-                return false;
-            });
+//            $("#dice").click(function() {
+//                prepareAnimation();
+//                $("#player1").fadeOut(700, function() {
+//                    $("#player1").appendTo("#start_road");
+//                    $("#player1").fadeIn(700,completeAnimation);
+//                });
+//                return false;
+//            });
+
             //]]>
         </script>
 

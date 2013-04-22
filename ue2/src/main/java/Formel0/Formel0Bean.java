@@ -39,7 +39,7 @@ public class Formel0Bean {
         for(int i=0; i< numPlayers; i++) {
             playerPos[i]=0;
             playerPrevPos[i]=-1;
-            lastDiceNum[i]=-1;
+            lastDiceNum[i]=0;
         }
         
         startTime = new Date();
