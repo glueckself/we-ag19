@@ -44,7 +44,7 @@
                                 <th id="computerScoreLabel" class="label">W&uuml;rfelergebnis <em><%= gameData.getComputerPlayer().getName() %></em></th>
                                 <td id="computerScore" class="data"><%= gameData.getComputerPlayer().getLastDiceNum() %></td>
                             </tr>
-                        </table>  
+                        </table>
                         <h2>Spieler</h2>
                         <table summary="Diese Tabelle listet die Namen der Spieler auf">
                             <% for(int i=0; i<gameData.getPlayers().size(); i++) { %>
@@ -54,7 +54,7 @@
                                     <td id="player<%= playerNum %>Name" class="data"><%= gameData.getPlayer(i).getName() %></td>
                                 </tr>
                             <% } %>
-                        </table>    	  
+                        </table>
                     </div>
                     <div class="field">
                         <h2 class="accessibility">Spielbereich</h2>
@@ -73,16 +73,16 @@
                                             numOils++;
                                         }
                                     }
-                                    
+
                                     switch(i) {
                                         case 0:
                                             out.println("<li id=\"start_road\"> <span class=\"accessibility\">Startfeld</span>");
                                             break;
-                                            
+
                                         case Formel0Game.NUM_FIELDS-1:
                                             out.println("<li id=\"finish_road\"><span class=\"accessibility\">Zielfeld</span>");
                                             break;
-                                            
+
                                         default:
                                             out.println("<li class=\""+liClass+"\" id=\"road_"+Integer.toString(i+1)+"\"><span class=\"accessibility\">Feld "+Integer.toString(i+1) +"</span>");
                                             break;
@@ -92,16 +92,16 @@
 
                                     if(i == posPlayer1) {
                                         out.println("<span id=\"player1\"><span class=\"accessibility\"><em>Spieler 1</em></span></span>");
-                                        
+
                                     }
-                                    
+
                                     if(i == posPlayer2) {
                                         out.println("<span id=\"player2\"><span class=\"accessibility\"><em>Spieler 2</em></span></span>");
-                                    
+
                                     }
-                                    
+
                                     out.println("</li>");
-                               
+
                                 }
                             %>
                         </ol>
@@ -129,12 +129,12 @@
 
         <script type="text/javascript">
             //<![CDATA[
-            
+
             // call this function once before starting the animations
             function prepareAnimation() {
                 $("#animationDone").remove();
             }
-            
+
             // call this function once after all animations have finished
             function completeAnimation() {
                 var div = $(document.createElement('div'));
@@ -142,15 +142,58 @@
                 div.addClass('hide');
                 $("body").append(div);
             }
-            
-//            $("#dice").click(function() {
-//                prepareAnimation();
-//                $("#player1").fadeOut(700, function() {
-//                    $("#player1").appendTo("#start_road");
-//                    $("#player1").fadeIn(700,completeAnimation);
-//                });
-//                return false;
-//            });
+
+            function runAnimation(moves, on_finished) {
+                move = moves.shift();
+
+                if (!move) {
+                    on_finished();
+                    return;
+                }
+
+                $(move.id).fadeOut(700, function() {
+                    $("ol#road li").eq(move.target).append($(move.id));
+                    $(move.id).fadeIn(700, function() {
+                        runAnimation(moves, on_finished);
+                    });
+                });
+            }
+
+            $(function() {
+                var players = [
+                    <% for (int i=0; i < gameData.getPlayers().size(); i++) { %>
+                        <% Formel0Bean.Player p = gameData.getPlayer(i); %>
+                        {
+                            id: "#player<%= i+1 %>",
+                            pos: <%= p.getPos() %>,
+                            prevPos: <%= p.getPrevPos() %>,
+                            diceNum: <%= p.getLastDiceNum() %>
+                        }<% if (i+1 < gameData.getPlayers().size()) { out.print(","); } %>
+                    <% } %>
+                ];
+
+                console.log(players);
+
+                var moves = [];
+                players.forEach(function(p) {
+                    // p.prevPos == -1 at game start; don't animate that
+                    if (p.prevPos >= 0) {
+                        // Move car to previous position
+                        $("ol#road li").eq(p.prevPos).append($(p.id));
+                        // Animate to prevPos + dice
+                        moves.push({id: p.id, target: p.prevPos + p.diceNum});
+                        // Did we land on an oil spit? Then one more animation is needed
+                        if (p.pos == 0) {
+                            moves.push({id: p.id, target: 0});
+                        }
+                    }
+                });
+
+                console.log(moves);
+
+                prepareAnimation();
+                runAnimation(moves, completeAnimation);
+            });
 
             //]]>
         </script>
