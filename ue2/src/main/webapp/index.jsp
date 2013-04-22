@@ -172,8 +172,6 @@
                     <% } %>
                 ];
 
-                console.log(players);
-
                 var moves = [];
                 players.forEach(function(p) {
                     // p.prevPos == -1 at game start; don't animate that
@@ -189,10 +187,10 @@
                     }
                 });
 
-                console.log(moves);
-
-                prepareAnimation();
-                runAnimation(moves, completeAnimation);
+                if (moves.length > 0) {
+                    prepareAnimation();
+                    runAnimation(moves, completeAnimation);
+                }
             });
 
             //]]>
