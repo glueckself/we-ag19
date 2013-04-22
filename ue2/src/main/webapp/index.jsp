@@ -1,8 +1,4 @@
 <%@page import="java.text.SimpleDateFormat, Formel0.Formel0Bean,Formel0.Formel0Game"%>
-<%
-    final int computerPlayer = 1;
-    final int userPlayer = 0;
-%>
 
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
@@ -38,24 +34,24 @@
                             </tr>
                             <tr>
                                 <th id="roundLabel" class="label">Runde</th>
-                                <td id="round" class="data"><%= Integer.toString(gameData.getRound()) %></td>
+                                <td id="round" class="data"><%= gameData.getRound() %></td>
                             </tr>
                             <tr>
                                 <th id="timeLabel" class="label">Zeit</th>
                                 <td id="time" class="data"><%= new SimpleDateFormat("mm:ss").format(gameData.getGameDuration()) %></td>
                             </tr>
                             <tr>
-                                <th id="computerScoreLabel" class="label">W&uuml;rfelergebnis <em><%= gameData.getPlayerName(computerPlayer) %></em></th>
-                                <td id="computerScore" class="data"><%= Integer.toString(gameData.getLastDiceNum(computerPlayer)) %></td>
+                                <th id="computerScoreLabel" class="label">W&uuml;rfelergebnis <em><%= gameData.getComputerPlayer().getName() %></em></th>
+                                <td id="computerScore" class="data"><%= gameData.getComputerPlayer().getLastDiceNum() %></td>
                             </tr>
                         </table>  
                         <h2>Spieler</h2>
                         <table summary="Diese Tabelle listet die Namen der Spieler auf">
-                            <% for(int i=0; i<Formel0Game.NUM_PLAYERS; i++) { %>
+                            <% for(int i=0; i<gameData.getPlayers().size(); i++) { %>
                                 <tr>
                                     <% String playerNum = Integer.toString(i+1); %>
                                     <th id="player<%= playerNum %>NameLabel" class="label">Spieler <%= playerNum %></th>
-                                    <td id="player<%= playerNum %>Name" class="data"><%= gameData.getPlayerName(i) %></td>
+                                    <td id="player<%= playerNum %>Name" class="data"><%= gameData.getPlayer(i).getName() %></td>
                                 </tr>
                             <% } %>
                         </table>    	  
@@ -66,8 +62,8 @@
                             <%
                                 String liClass;
                                 int numOils=0;
-                                int posPlayer1 = gameData.getPlayerPos(0);
-                                int posPlayer2 = gameData.getPlayerPos(1);
+                                int posPlayer1 = gameData.getPlayer(0).getPos();
+                                int posPlayer2 = gameData.getPlayer(1).getPos();
 
                                 for(int i=0; i<Formel0Game.NUM_FIELDS; i++) {
                                     liClass="empty_road";
@@ -112,12 +108,12 @@
                     </div>
                     <div class="player">
                         <h2 class="accessibility">W&uuml;rfelbereich</h2>
-                        <span class="accessibility">An der Reihe ist </span><div id="currentPlayerName"><%= gameData.getPlayerName(userPlayer) %></div>
+                        <span class="accessibility">An der Reihe ist </span><div id="currentPlayerName"><%= gameData.getUserPlayer().getName() %></div>
                         <% if(!gameData.isGameFinished()) { %>
                             <a id="dice" href="?command=dice" tabindex="4">
                         <% } %>
 
-                        <% int diceNum = gameData.getLastDiceNum(userPlayer); %>
+                        <% int diceNum = gameData.getUserPlayer().getLastDiceNum(); %>
                         <img id="diceImage" src="img/wuerfel<%= diceNum %>.png" alt="W&uuml;rfel mit einer <%= diceNum %>" />
 
                         <% if(!gameData.isGameFinished()) { %>

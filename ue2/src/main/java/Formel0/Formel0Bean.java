@@ -1,7 +1,7 @@
 package Formel0;
 
 
-import java.util.Date;
+import java.util.*;
 
 /*
  * Model Class
@@ -14,33 +14,63 @@ import java.util.Date;
  * @author srdj
  */
 public class Formel0Bean {
-    private int playerPos[];
-    private int playerPrevPos[];
-    private int lastDiceNum[];
-    
+
+    public class Player {
+        private String name;
+        private int pos;
+        private int prevPos;
+        private int lastDiceNum;
+
+        private Player(String name) {
+            this.name = name;
+            this.pos = 0;
+            this.prevPos = -1;
+            this.lastDiceNum = 0;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getPos() {
+            return pos;
+        }
+
+        public int getPrevPos() {
+            return prevPos;
+        }
+
+        public void setPos(int newPos) {
+            prevPos = pos;
+            pos = newPos;
+        }
+
+        public int getLastDiceNum() {
+            return lastDiceNum;
+        }
+
+        public void setLastDiceNum(int newLastDiceNum) {
+            lastDiceNum = newLastDiceNum;
+        }
+    }
+
+    private final List<Player> players;
+    private final Player computerPlayer;
+    private final Player userPlayer;
     private boolean gameFinished = false;
     private Date startTime;
     
-    private String playerNames[];
-    
     private int round;
-    
-    public Formel0Bean(int numPlayers) {
-        lastDiceNum = new int[numPlayers];
-        playerPrevPos = new int[numPlayers];
-        playerPos = new int[numPlayers];
-        playerNames = new String[numPlayers];
-        
-        playerNames[0]="Super Mario";
-        playerNames[1]="Super C";
-        
-        round=0;
-        
-        for(int i=0; i< numPlayers; i++) {
-            playerPos[i]=0;
-            playerPrevPos[i]=-1;
-            lastDiceNum[i]=0;
-        }
+
+    public Formel0Bean() {
+        userPlayer = new Player("Super Mario");
+        computerPlayer = new Player("Super C");
+
+        players = new ArrayList<Player>();
+        players.add(userPlayer);
+        players.add(computerPlayer);
+
+        round = 0;
         
         startTime = new Date();
     }
@@ -52,66 +82,41 @@ public class Formel0Bean {
     public void nextRound() {
         round++;
     }
-    
-    public String getPlayerName(int index) {
-        return playerNames[index];
+
+    public List<Player> getPlayers() {
+        return Collections.unmodifiableList(players);
+    }
+
+    public Player getPlayer(int index) {
+        return players.get(index);
+    }
+
+    public Player getUserPlayer() {
+        return userPlayer;
+    }
+
+    public Player getComputerPlayer() {
+        return computerPlayer;
     }
 
     public String getLeaderName() {
-        int bestPlayer = 0;
-        int currentMax = 0;
-        int currentMaxCount = 0;
+        Player bestPlayer = null;
+        int currentMax = -1;
 
-        for(int i = 0; i < Formel0Game.NUM_PLAYERS; i++) {
-            int pos = getPlayerPos(i);
-
-            if (pos > currentMax) {
-                bestPlayer = i;
-                currentMax = pos;
-                currentMaxCount = 1;
-            } else if (pos == currentMax) {
-                currentMaxCount++;
+        for(Player p : players) {
+            if (p.pos > currentMax) {
+                bestPlayer = p;
+                currentMax = p.pos;
+            } else if (p.pos == currentMax) {
+                bestPlayer = null;
             }
         }
 
-        if (currentMaxCount > 1) {
+        if (bestPlayer == null) {
             return "mehrere";
         } else {
-            return getPlayerName(bestPlayer);
+            return bestPlayer.name;
         }
-    }
-
-    /**
-     * @return the playerPos
-     */
-    public int getPlayerPos(int index) {
-        return playerPos[index];
-    }
-
-    /**
-     * @param playerPos the playerPos to set
-     */
-    public void setPlayerPos(int playerPos, int index) {
-        this.playerPrevPos[index] = this.playerPos[index];
-        this.playerPos[index] = playerPos;
-    }
-    
-    public int getPlayerPrevPos(int index) {
-        return playerPrevPos[index];
-    }
-
-    /**
-     * @return the lastDiceNum
-     */
-    public int getLastDiceNum(int index) {
-        return lastDiceNum[index];
-    }
-
-    /**
-     * @param lastDiceNum the lastDiceNum to set
-     */
-    public void setLastDiceNum(int lastDiceNum, int index) {
-        this.lastDiceNum[index] = lastDiceNum;
     }
 
     /**

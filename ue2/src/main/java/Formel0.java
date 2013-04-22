@@ -31,10 +31,7 @@ public class Formel0 extends HttpServlet {
         }
         else if (command.equals("dice")) {
             if (!gameData.isGameFinished()) {
-                gameData.nextRound();
-                for(int i=0; i< Formel0Game.NUM_PLAYERS; i++) {
-                    Formel0Game.throwDice(gameData, i);
-                }
+                Formel0Game.playRound(gameData);
             }
             redirectTarget = "/index.jsp";
         }
