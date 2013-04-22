@@ -1,7 +1,7 @@
 package Formel0;
 
 /*
- * Model class
+ * Controller class
  */
 
 /**
