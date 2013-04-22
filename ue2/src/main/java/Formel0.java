@@ -21,17 +21,20 @@ public class Formel0 extends HttpServlet {
         String command = request.getParameter("command");
         if(command == null)
             command="";
-        
-        if(session.isNew() || command.equals("newGame") || command.equals("")) {
-            Formel0Bean gameData = Formel0Game.createGame();
+
+        Formel0Bean gameData = (Formel0Bean)session.getAttribute("gameData");
+
+        if(session.isNew() || command.equals("newGame") || command.equals("") || gameData == null) {
+            gameData = Formel0Game.createGame();
             session.setAttribute("gameData", gameData);
             redirectTarget = "/index.jsp";
         }
         else if (command.equals("dice")) {
-            Formel0Bean gameData = (Formel0Bean)session.getAttribute("gameData");
-            gameData.nextRound();
-            for(int i=0; i< Formel0Game.NUM_PLAYERS; i++) {
-                Formel0Game.throwDice(gameData, i);
+            if (!gameData.isGameFinished()) {
+                gameData.nextRound();
+                for(int i=0; i< Formel0Game.NUM_PLAYERS; i++) {
+                    Formel0Game.throwDice(gameData, i);
+                }
             }
             redirectTarget = "/index.jsp";
         }
