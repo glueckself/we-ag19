@@ -1,7 +1,6 @@
-<%@page import="java.text.SimpleDateFormat, Formel0.Formel0Bean,Formel0.Formel0Game"%>
-
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<%@page import="java.text.SimpleDateFormat, Formel0.Formel0Bean,Formel0.Formel0Game"%>
 <jsp:useBean id="gameData" class="Formel0Bean" scope="session" />
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de">
     <head>
