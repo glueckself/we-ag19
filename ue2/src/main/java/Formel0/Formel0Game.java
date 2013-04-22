@@ -43,7 +43,7 @@ public class Formel0Game {
             }
         }
         
-        if(nextPos >= NUM_FIELDS) {
+        if(nextPos >= (NUM_FIELDS - 1)) {
             p.setPos(NUM_FIELDS-1);
             gameData.setGameFinished(true);
             return;
