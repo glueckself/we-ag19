@@ -16,7 +16,12 @@ public class Formel0Game {
     public static final int NUM_FIELDS = 7;
     public static final int NUM_PLAYERS = 2;
     public static final int[] oilSpits =  {2, 5};
-     
+
+    public static Formel0Bean createGame() {
+        Formel0Bean newGame = new Formel0Bean(Formel0Game.NUM_PLAYERS);
+        return newGame;
+    }
+
     public static void throwDice(Formel0Bean gameData, int currentPlayer)
         throws IllegalArgumentException {
         if(currentPlayer < 0 && currentPlayer >= NUM_PLAYERS)

@@ -13,55 +13,39 @@ import javax.servlet.http.*;
  */
 public class Formel0 extends HttpServlet {
     
-    private GameList formel0Games;
-
-    public Formel0()
-            throws ServletException {
-        super.init();
-        formel0Games = new GameList();
-    }
-    
     private void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session=request.getSession();
+        HttpSession session = request.getSession();
         String redirectTarget;
-        
-        Formel0Bean currentData;
+
         String command = request.getParameter("command");
         if(command == null)
             command="";
         
-        if(session.isNew()) {
-            currentData=formel0Games.createGame(session.getId());
-            redirectTarget = "index.jsp";
-        } else {
-            if(command.equals("newGame") || command.equals("")) {
-                formel0Games.endGame(session.getId());
-                currentData = formel0Games.createGame(session.getId());
-                redirectTarget = "index.jsp";
-            } else if (command.equals("dice")) {
-                currentData = formel0Games.getGame(session.getId());
-                currentData.nextRound();
-                for(int i=0; i< Formel0Game.NUM_PLAYERS; i++) {
-                    Formel0Game.throwDice(currentData, i);
-                }
-                redirectTarget = "index.jsp";
-            } else if (command.equals("logout")) {
-                formel0Games.endGame(session.getId());
-                session.invalidate();
-                redirectTarget = "logout.html";
-                currentData = null;
-            } else {
-                currentData = null;
-                response.sendError(1,"Invalid command");
-                return;
-            }
+        if(session.isNew() || command.equals("newGame") || command.equals("")) {
+            Formel0Bean gameData = Formel0Game.createGame();
+            session.setAttribute("gameData", gameData);
+            redirectTarget = "/index.jsp";
         }
-        
-        RequestDispatcher view = request.getRequestDispatcher(redirectTarget);
-        request.setAttribute("gameData",currentData);
+        else if (command.equals("dice")) {
+            Formel0Bean gameData = (Formel0Bean)session.getAttribute("gameData");
+            gameData.nextRound();
+            for(int i=0; i< Formel0Game.NUM_PLAYERS; i++) {
+                Formel0Game.throwDice(gameData, i);
+            }
+            redirectTarget = "/index.jsp";
+        }
+        else if (command.equals("logout")) {
+            session.invalidate();
+            redirectTarget = "/logout.html";
+        }
+        else {
+            response.sendError(1,"Invalid command");
+            return;
+        }
+
+        RequestDispatcher view = getServletContext().getRequestDispatcher(redirectTarget);
         view.forward(request, response);  
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
