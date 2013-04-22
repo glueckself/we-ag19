@@ -56,7 +56,31 @@ public class Formel0Bean {
     public String getPlayerName(int index) {
         return playerNames[index];
     }
-    
+
+    public String getLeaderName() {
+        int bestPlayer = 0;
+        int currentMax = 0;
+        int currentMaxCount = 0;
+
+        for(int i = 0; i < Formel0Game.NUM_PLAYERS; i++) {
+            int pos = getPlayerPos(i);
+
+            if (pos > currentMax) {
+                bestPlayer = i;
+                currentMax = pos;
+                currentMaxCount = 1;
+            } else if (pos == currentMax) {
+                currentMaxCount++;
+            }
+        }
+
+        if (currentMaxCount > 1) {
+            return "mehrere";
+        } else {
+            return getPlayerName(bestPlayer);
+        }
+    }
+
     /**
      * @return the playerPos
      */

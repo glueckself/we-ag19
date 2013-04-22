@@ -34,31 +34,7 @@
                         <table summary="Diese Tabelle zeigt Informationen zum aktuellen Spiel">
                             <tr>
                                 <th id="leaderLabel" class="label">F&uuml;hrender</th>
-                                <td id="leader" class="data">
-                                    <%
-                                        int bestPlayer = 0;
-                                        int currentMax = 0;
-                                        int currentMaxCount = 0;
-
-                                        for(int i = 0; i < Formel0Game.NUM_PLAYERS; i++) {
-                                            int pos = gameData.getPlayerPos(i);
-
-                                            if (pos > currentMax) {
-                                                bestPlayer = i;
-                                                currentMax = pos;
-                                                currentMaxCount = 1;
-                                            } else if (pos == currentMax) {
-                                                currentMaxCount++;
-                                            }
-                                        }
-
-                                        if (currentMaxCount > 1) {
-                                            out.print("mehrere");
-                                        } else {
-                                            out.print(gameData.getPlayerName(bestPlayer));
-                                        }
-                                    %>
-                                </td>
+                                <td id="leader" class="data"><%= gameData.getLeaderName() %></td>
                             </tr>
                             <tr>
                                 <th id="roundLabel" class="label">Runde</th>
