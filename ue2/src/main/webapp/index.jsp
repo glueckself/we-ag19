@@ -66,10 +66,12 @@
                                 int posPlayer2 = gameData.getPlayer(1).getPos();
 
                                 for(int i=0; i<Formel0Game.NUM_FIELDS; i++) {
+                                    boolean isOilRoad = false;
                                     liClass="empty_road";
                                     if(numOils < Formel0Game.oilSpits.length) {
                                         if(Formel0Game.oilSpits[numOils] == i) {
                                             liClass="oil_road";
+                                            isOilRoad = true;
                                             numOils++;
                                         }
                                     }
@@ -84,7 +86,8 @@
                                             break;
 
                                         default:
-                                            out.println("<li class=\""+liClass+"\" id=\"road_"+Integer.toString(i+1)+"\"><span class=\"accessibility\">Feld "+Integer.toString(i+1) +"</span>");
+                                            out.println("<li class=\""+liClass+"\" id=\"road_"+Integer.toString(i+1)+"\">"+
+                                                        "<span class=\"accessibility\">Feld "+Integer.toString(i+1)+(isOilRoad ? " mit &Ouml;lfleck" : "")+"</span>");
                                             break;
                                     }
 
@@ -108,7 +111,10 @@
                     </div>
                     <div class="player">
                         <h2 class="accessibility">W&uuml;rfelbereich</h2>
-                        <span class="accessibility">An der Reihe ist </span><div id="currentPlayerName"><%= gameData.getUserPlayer().getName() %></div>
+                        <% if(!gameData.isGameFinished()) { %>
+                            <span class="accessibility">An der Reihe ist</span>
+                        <% } %>
+                        <div id="currentPlayerName"><%= gameData.getUserPlayer().getName() %></div>
                         <% if(!gameData.isGameFinished()) { %>
                             <a id="dice" href="?command=dice" tabindex="4">
                         <% } %>
@@ -179,7 +185,7 @@
                         // Move car to previous position
                         $("ol#road li").eq(p.prevPos).append($(p.id));
                         // Animate to prevPos + dice
-                        moves.push({id: p.id, target: p.prevPos + p.diceNum});
+                        moves.push({id: p.id, target: Math.min(p.prevPos + p.diceNum, <%= Formel0Game.NUM_FIELDS - 1 %>)});
                         // Did we land on an oil spit? Then one more animation is needed
                         if (p.pos == 0) {
                             moves.push({id: p.id, target: 0});
