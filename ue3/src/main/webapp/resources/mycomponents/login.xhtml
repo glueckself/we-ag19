@@ -12,14 +12,20 @@
     </cc:interface>
 
     <cc:implementation>
-        <h:form id="form">
-            <h:outputLabel for="name" value="#{msg.loginName}: " />
-            <h:inputText    id="name" value="#{cc.attrs.username}" />
-
-            <h:outputLabel for="password" value="#{msg.loginPassword}: " />
-            <h:inputSecret  id="password" value="#{cc.attrs.password}" />
-
-            <h:commandButton id="submit" value="#{msg.loginSubmit}" />
+        <h:form id="form" class="login-form">
+            <ol>
+                <li>
+                    <h:outputLabel for="name" value="#{msg.loginName}: " />
+                    <h:inputText    id="name" value="#{cc.attrs.username}" />
+                </li>
+                <li>
+                    <h:outputLabel for="password" value="#{msg.loginPassword}: " />
+                    <h:inputSecret  id="password" value="#{cc.attrs.password}" />
+                </li>
+                <li>
+                    <h:commandButton id="submit" value="#{msg.loginSubmit}" />
+                </li>
+            </ol>
         </h:form>
     </cc:implementation>
 

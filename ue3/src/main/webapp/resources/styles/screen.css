@@ -185,6 +185,17 @@ div.field {
     font-size: 90%;
 }
 
+.login-form label {
+    width: 120px;
+    float: left;
+    clear: left;
+}
+
+.login-form li {
+    list-style: none;
+    line-height: 1.8;
+}
+
 /* spielfeld styles */
 
 div#main-area {
