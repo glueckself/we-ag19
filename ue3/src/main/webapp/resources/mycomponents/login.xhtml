@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:composite="http://java.sun.com/jsf/composite"
-  xmlns:h="http://java.sun.com/jsf/html" lang="de" xml:lang="de"
-  xmlns:f="http://java.sun.com/jsf/core">
-    <h:head>
-        <title xml:lang="de">irgendwas</title>
-    </h:head>
-    <h:body>
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <body>
         <composite:interface>
             <composite:actionSource name="submit"/>
         </composite:interface>
         <composite:implementation>
-                    <f:view id="login">
-                        <h:form id="form">
-                            <h:outputLabel for="name" value="#{msg.loginName};"/>
-                            <h:inputText id="name" required="true"/>
-                            <h:outputLabel for="password" value="#{msg.password};"/>
-                            <h:inputSecret id="password"/>
-                            <h:commandButton id="submit" value="#{msg.loginSubmit};"/>
-                        </h:form>
-                    </f:view>
+            <h:form id="form">
+                <h:outputLabel for="name" value="#{msg.loginName}: " />
+                <h:inputText    id="name" value="#{loginCtrl.username}">
+                    <f:validateRequired />
+                    <f:validateLength minimum="3" maximum="8"/>
+                </h:inputText>
+
+                <h:outputLabel for="password" value="#{msg.loginPassword}: " />
+                <h:inputSecret  id="password" value="#{loginCtrl.password}" />
+
+                <h:commandButton id="login" value="#{msg.loginSubmit}" action="#{loginCtrl.login}"/>
+
+                <!-- TODO: CSS for messages -->
+                <p/>
+                <h:outputText value="#{msg.loginFailure}" rendered="#{loginCtrl.loginFailed}" style="color: red"/>
+                <h:messages style="color: red"/>
+            </h:form>
         </composite:implementation>
-    </h:body>
+    </body>
 </html>
-        
