@@ -5,19 +5,91 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:header="http://java.sun.com/jsf/composite/mycomponents"
       xmlns:f="http://java.sun.com/jsf/core">
-    <h:head>
-        <title xml:lang="de">#{msg.appname} - #{msg.registerTitle}</title>
-        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-        <link rel="stylesheet" type="text/css" href="./styles/screen.css" />
-        <script src="js/jquery.js" type="text/javascript"></script>
-    </h:head>
-    <h:body>
+    <body>
         <ui:composition template="siteDesign.xhtml">
             <ui:param name="pageSubTitle" value="#{msg.registerTitle}" />
+            <ui:define name="navigation">
+                <ul title="Navigation">
+                    <li>
+                        <h:outputLink value="faces/index.xhtml">#{msg.backToLogin}</h:outputLink>
+                    </li>
+                </ul>
+            </ui:define>
             <ui:define name="content">
-                       <h:outputText value="uiae" />
+                <h2>#{msg.register}</h2>
+                <p>#{msg.registerInfo}</p>
+
+                <h:form id="form" class="register-form">
+                    <fieldset>
+                        <legend>#{msg.personalData}</legend>
+                        <ol>
+                            <li>
+                                <h:outputLabel for="firstname" value="#{msg.firstName}: " />
+                                <h:inputText    id="firstname" value="#{registrationCtrl.firstName}" tabindex="3"
+                                                required="true" requiredMessage="#{msg.firstNameRequired}"
+                                                validatorMessage="#{msg.firstNameInvalid}">
+                                    <f:validateRegex pattern="^[a-zA-Z]+$" />
+                                </h:inputText>
+                                <h:messages for="firstname" class="validation_error" />
+                            </li>
+                            <li>
+                                <h:outputLabel for="lastname" value="#{msg.lastName}: " />
+                                <h:inputText    id="lastname" value="#{registrationCtrl.lastName}" tabindex="4"
+                                                required="true" requiredMessage="#{msg.lastNameRequired}"
+                                                validatorMessage="#{msg.lastNameInvalid}">
+                                    <f:validateRegex pattern="^[a-zA-Z]+$" />
+                                </h:inputText>
+                                <h:messages for="lastname" class="validation_error" />
+                            </li>
+                            <li>
+                                <h:outputLabel for="birthday" value="#{msg.birthday}: " />
+                                <h:inputText    id="birthday" value="#{registrationCtrl.dateOfBirth}" tabindex="5"
+                                                required="true" requiredMessage="#{msg.birthdayRequired}"
+                                                validatorMessage="#{msg.birthdayInvalid}" />
+                                <!--TODO: Custom validator-->
+                                <h:messages for="birthday" class="validation_error" />
+                            </li>
+                            <li>
+                                <h:outputLabel  for="sex" value="#{msg.sex}: " />
+                                <h:selectOneMenu id="sex" value="#{registrationCtrl.sex}" tabindex="6"
+                                                 required="true" requiredMessage="#{msg.sexRequired}">
+                                    <f:selectItem id="sex_f" itemLabel="#{msg.female}" itemValue="#{registrationCtrl.sexFemale}" />
+                                    <f:selectItem id="sex_m" itemLabel="#{msg.male}" itemValue="#{registrationCtrl.sexMale}" />
+                                </h:selectOneMenu>
+                                <h:messages for="sex" class="validation_error" />
+                            </li>
+                        </ol>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>#{msg.loginData}</legend>
+                        <ol>
+                            <li>
+                                <h:outputLabel for="username" value="#{msg.user}: " />
+                                <h:inputText    id="username" value="#{registrationCtrl.username}" tabindex="7"
+                                                required="true" requiredMessage="#{msg.usernameRequired}"
+                                                validatorMessage="#{msg.usernameInvalid}">
+                                    <f:validateRegex pattern="^[a-zA-Z]+$" />
+                                </h:inputText>
+                                <h:messages for="username" class="validation_error" />
+                            </li>
+                            <li>
+                                <h:outputLabel for="password" value="#{msg.password}: " />
+                                <h:inputText    id="password" value="#{registrationCtrl.password}" tabindex="8"
+                                                required="true" requiredMessage="#{msg.passwordRequired}"
+                                                validatorMessage="#{msg.passwordInvalid}">
+                                    <f:validateRegex pattern="(.*[a-zA-Z].*[0-9].*|.*[0-9].*[a-zA-Z].*)" />
+                                </h:inputText>
+                                <h:messages for="password" class="validation_error" />
+                            </li>
+                        </ol>
+                    </fieldset>
+
+                    <p>
+                        <h:commandButton id="submit" value="#{msg.register}" action="#{registrationCtrl.register}" tabindex="9" />
+                    </p>
+                </h:form>
             </ui:define>
         </ui:composition>
-    </h:body>
+    </body>
 </html>
-    

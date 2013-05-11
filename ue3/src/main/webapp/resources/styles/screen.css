@@ -110,9 +110,19 @@ div#footer {
     float: right;
 }
 
-label.registerform {
-    float:left;
-    width: 10em;
+.register-form label {
+    width: 120px;
+    float: left;
+    clear: left;
+}
+
+.register-form li {
+    list-style: none;
+    line-height: 1.8;
+}
+
+.register-form legend {
+    font-weight: bold;
 }
 
 fieldset {
