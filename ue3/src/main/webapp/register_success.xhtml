@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:header="http://java.sun.com/jsf/composite/mycomponents"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <body>
+        <ui:composition template="siteDesign.xhtml">
+            <ui:param name="pageSubTitle" value="#{msg.registerSuccess}" />
+            <ui:define name="navigation">
+                <ul title="Navigation">
+                    <li>
+                        <h:outputLink value="faces/index.xhtml">#{msg.goToLogin}</h:outputLink>
+                    </li>
+                </ul>
+            </ui:define>
+            <ui:define name="content">
+                <h2>#{msg.registerSuccess}</h2>
+                <p>#{msg.registerSuccessMessage}</p>
+                <h:outputLink value="faces/index.xhtml">#{msg.goToLogin}</h:outputLink>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
