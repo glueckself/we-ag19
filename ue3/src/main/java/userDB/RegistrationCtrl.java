@@ -1,6 +1,8 @@
 package userDB;
 
 import java.util.GregorianCalendar;
+import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -93,14 +95,31 @@ public class RegistrationCtrl {
     }
 
     public String register() {
-        // TODO
-        return "/register.xhtml";
+        User user = new User(getFirstName(), getLastName(), getSex(), getUsername(), getPassword(), getDateOfBirth());
+        getUserDB().registerUser(user);
+        return "/register_success.xhtml";
+    }
+
+    public void validateUsername(FacesContext ctx, UIComponent component, Object value) throws ValidatorException {
+        String str = (String) value;
+        if (!Pattern.compile("^[a-zA-Z]+$").matcher(str).matches()) {
+            throw new ValidatorException(new FacesMessage(getLocalized("usernameInvalid")));
+        }
+        if (getUserDB().hasUser(str)) {
+            throw new ValidatorException(new FacesMessage(getLocalized("usernameExists")));
+        }
     }
 
     public void validateDateOfBirth(FacesContext ctx, UIComponent component, Object value) throws ValidatorException {
-        GregorianCalendar date = (GregorianCalendar)value;
+        GregorianCalendar date = (GregorianCalendar) value;
         if (date.after(new GregorianCalendar())) {
-            throw new ValidatorException(new FacesMessage("#{msg.birthdayInFuture}"));
+            throw new ValidatorException(new FacesMessage(getLocalized("birthdayInFuture")));
         }
+    }
+
+    private String getLocalized(String key) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ResourceBundle text = ResourceBundle.getBundle("i18n", context.getViewRoot().getLocale());
+        return text.getString(key);
     }
 }

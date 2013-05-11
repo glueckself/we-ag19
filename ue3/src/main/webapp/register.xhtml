@@ -45,8 +45,8 @@
                                 <h:outputLabel for="birthday" value="#{msg.birthday}: " />
                                 <h:inputText    id="birthday" value="#{registrationCtrl.dateOfBirth}" tabindex="5"
                                                 required="true" requiredMessage="#{msg.birthdayRequired}"
-                                                validator="#{registrationCtrl.validateDateOfBirth}" validatorMessage="#{msg.birthdayInFuture}"
-                                                converterMessage="[CONVERTER]#{msg.birthdayInvalid}">
+                                                validator="#{registrationCtrl.validateDateOfBirth}"
+                                                converterMessage="#{msg.birthdayInvalid}">
                                     <f:converter converterId="userDB.DateConverter" />
                                 </h:inputText>
                                 <h:messages for="birthday" class="validation_error" />
@@ -70,9 +70,7 @@
                                 <h:outputLabel for="username" value="#{msg.user}: " />
                                 <h:inputText    id="username" value="#{registrationCtrl.username}" tabindex="7"
                                                 required="true" requiredMessage="#{msg.usernameRequired}"
-                                                validatorMessage="#{msg.usernameInvalid}">
-                                    <f:validateRegex pattern="^[a-zA-Z]+$" />
-                                </h:inputText>
+                                                validator="#{registrationCtrl.validateUsername}" />
                                 <h:messages for="username" class="validation_error" />
                             </li>
                             <li>

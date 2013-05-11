@@ -26,7 +26,11 @@ public class UserDB {
     public User getUser(String username) {
         return users.get(username);
     }
-    
+
+    public boolean hasUser(String username) {
+        return users.containsKey(username);
+    }
+
     public void registerUser(User user) {
         if(user == null)
             return; //maybe throw something, just for fun ;)

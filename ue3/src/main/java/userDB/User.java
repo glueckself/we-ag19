@@ -1,7 +1,7 @@
 package userDB;
 
 import java.beans.PropertyChangeSupport;
-import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class User {
     public static final String PROP_FIRSTNAME = "PROP_FIRSTNAME";
@@ -14,13 +14,13 @@ public class User {
     
     private String firstName;
     private String lastName;
-    private Date birthday;
+    private GregorianCalendar birthday;
     private Sex sex;
     
     private String userName;
     private String password;
     
-    public User(String _firstName, String _lastName, Sex _sex, String _userName, String _password, Date _birthday) {
+    public User(String _firstName, String _lastName, Sex _sex, String _userName, String _password, GregorianCalendar _birthday) {
         firstName=_firstName;
         lastName=_lastName;
         sex=_sex;
@@ -37,7 +37,7 @@ public class User {
         return lastName;
     }
 
-    public Date getBirthday() {
+    public GregorianCalendar getBirthday() {
         return birthday;
     }
 
