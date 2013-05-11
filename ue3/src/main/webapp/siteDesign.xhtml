@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html">
+    <!-- TODO: xml:lang -->
     <h:head>
         <title xml:lang="de">#{msg.appname} - #{msg.registerTitle}</title>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -18,17 +19,18 @@
                     </h:panelGroup>
                     <h:panelGroup id="header_right" layout="block"/>
                 </h:panelGroup>
-                    
+
                 <h:panelGroup layout="block" id="navigation">
                     <h2 class="accessibility">Navigation</h2>
                     <ui:insert name="navigation">Navigation</ui:insert>
                 </h:panelGroup>
-                    
-                <ui:insert name="content">Content</ui:insert>
 
-                <h:panelGroup layout="block" id="footer">
-                    &copy; #{msg.company}
-                </h:panelGroup>
+                <div id="content">
+                    <ui:insert name="content">Content</ui:insert>
+                </div>
+            </h:panelGroup>
+            <h:panelGroup layout="block" id="footer">
+                &copy; #{msg.company}
             </h:panelGroup>
         </h:panelGroup>
     </h:body>
