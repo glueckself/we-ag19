@@ -16,9 +16,9 @@
             </ui:define>
 
             <ui:define name="content">
-                <h1>#{msg.login}</h1>
-                <mc:login id="login" username="#{loginCtrl.username}" password="#{loginCtrl.password}" action="#{loginCtrl.login}">
-                </mc:login>
+                <h1>#{msg.loginFailureHeading}</h1>
+                <p>#{msg.loginFailureMessage}</p>
+                <p><h:outputLink value="faces/index.xhtml">#{msg.loginFailureReturnButton}</h:outputLink></p>
             </ui:define>
         </ui:composition>
     </body>

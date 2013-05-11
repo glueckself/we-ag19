@@ -18,7 +18,6 @@ public class LoginCtrl
     String password;
 
     User user = null;
-    boolean isFirstLoginAttempt = true;
 
     public UserDB getUserDB() {
         return userDB;
@@ -48,18 +47,17 @@ public class LoginCtrl
         return user;
     }
 
-    public boolean isLoginFailed() {
-        return !isFirstLoginAttempt && (user == null);
+    public boolean isLoginValid() {
+        return (user != null);
     }
 
     public String login()
     {
         user = userDB.login(username, password);
-        isFirstLoginAttempt = false;
         password = null;
 
         if (user == null) {
-            return "/index.xhtml";
+            return "/login_failed.xhtml";
         } else {
             return "/table.xhtml";
         }
