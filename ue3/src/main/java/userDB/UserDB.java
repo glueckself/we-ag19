@@ -1,24 +1,26 @@
 package userDB;
 
 import java.util.HashMap;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.validator.ValidatorException;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ApplicationScoped;
 
+@ManagedBean
+@ApplicationScoped
 public class UserDB {
     private HashMap<String,User> users;
     
     public UserDB() {
         users = new HashMap<String,User>();
     }
-    
-    public boolean login(String username, String password) {
+
+    // Returns the User object if login is successful, null otherwise
+    public User login(String username, String password) {
         User user=users.get(username);
-        
-        if(user == null)
-            return false;
-        
-        return user.getPassword().equals(password);
+
+        if (user != null && !user.getPassword().equals(password))
+            user = null;
+
+        return user;
     }
     
     public User getUser(String username) {

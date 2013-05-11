@@ -11,7 +11,14 @@
     <h:body>
         <composite:interface></composite:interface>
         <composite:implementation>
-
+            <!-- TODO: implement iteration over children, so that it generates something like...
+                <ul title="Navigation">
+          (child 1) <li><h:outputLink value="faces/register.xhtml" >#{msg.registerButton}</h:outputLink> </li>
+          (child 2) <li><h:outputLink value="faces/register.xhtml" >#{msg.registerButton}</h:outputLink> </li>
+            ...     <li><h:outputLink value="faces/register.xhtml" >#{msg.registerButton}</h:outputLink> </li>
+                    <li><h:outputLink value="faces/register.xhtml" >#{msg.registerButton}</h:outputLink> </li>
+                </ul>
+            -->
         </composite:implementation>
     </h:body>
 </html>

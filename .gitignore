@@ -1,2 +1,4 @@
 # ignore compiled wep application
 /ue2/target/
+/ue3/target/
+faces-config.NavData
