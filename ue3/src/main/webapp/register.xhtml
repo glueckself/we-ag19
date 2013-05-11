@@ -45,8 +45,10 @@
                                 <h:outputLabel for="birthday" value="#{msg.birthday}: " />
                                 <h:inputText    id="birthday" value="#{registrationCtrl.dateOfBirth}" tabindex="5"
                                                 required="true" requiredMessage="#{msg.birthdayRequired}"
-                                                validatorMessage="#{msg.birthdayInvalid}" />
-                                <!--TODO: Custom validator-->
+                                                validator="#{registrationCtrl.validateDateOfBirth}" validatorMessage="#{msg.birthdayInFuture}"
+                                                converterMessage="[CONVERTER]#{msg.birthdayInvalid}">
+                                    <f:converter converterId="userDB.DateConverter" />
+                                </h:inputText>
                                 <h:messages for="birthday" class="validation_error" />
                             </li>
                             <li>
