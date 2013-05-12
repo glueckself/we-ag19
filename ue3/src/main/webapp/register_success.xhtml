@@ -8,6 +8,8 @@
     <body>
         <ui:composition template="siteDesign.xhtml">
             <ui:param name="pageSubTitle" value="#{msg.registerSuccess}" />
+            <ui:param name="contentId" value="content" />
+
             <ui:define name="navigation">
                 <ul title="Navigation">
                     <li>
@@ -15,6 +17,7 @@
                     </li>
                 </ul>
             </ui:define>
+
             <ui:define name="content">
                 <h2>#{msg.registerSuccess}</h2>
                 <p>#{msg.registerSuccessMessage}</p>
