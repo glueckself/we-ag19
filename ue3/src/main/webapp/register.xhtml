@@ -88,9 +88,23 @@
                         </ol>
                     </fieldset>
 
-                    <p>
-                        <h:commandButton id="submit" value="#{msg.register}" action="#{registrationCtrl.register}" tabindex="9" />
-                    </p>
+                    <fieldset class="showterms">
+                        <ol>
+                            <li>
+                                <h:selectBooleanCheckbox id="showterms" value="#{termsCtrl.termsVisible}" immediate="true" tabindex="9">
+                                    <f:ajax render="terms" />
+                                </h:selectBooleanCheckbox>
+                                <h:outputLabel for="showterms" value="#{msg.showterms}" />
+                            </li>
+                            <li>
+                                <h:panelGroup id="terms" layout="block">
+                                    <h:outputText value="${msg.terms}" rendered="#{termsCtrl.termsVisible}" />
+                                </h:panelGroup>
+                            </li>
+                        </ol>
+                    </fieldset>
+
+                    <h:commandButton id="submit" value="#{msg.register}" action="#{registrationCtrl.register}" tabindex="10" />
                 </h:form>
             </ui:define>
         </ui:composition>
