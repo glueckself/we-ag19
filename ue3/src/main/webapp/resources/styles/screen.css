@@ -103,6 +103,7 @@ div#navigation a:hover {
     text-decoration: none;
     font: 1em arial,sans-serif;
     padding: 0;
+    cursor: pointer;
 }
 
 #navForm input:hover {
