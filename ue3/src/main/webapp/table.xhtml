@@ -37,7 +37,7 @@
                 <tr><th id="player1NameLabel" class="label">#{msg.player1}</th><td id="player1Name" class="data">#{gameCtrl.game.player.name}</td></tr>
                 <tr><th id="player2NameLabel" class="label">#{msg.player2}</th><td id="player2Name" class="data">#{gameCtrl.game.computer.name}</td></tr>
 			</table>    	  
-                    </h:panelGroup>>
+                    </h:panelGroup>
                     
                     <h:panelGroup layout="block" id="field" class="field">
 			<h2 class="accessibility">#{msg.gameArea}</h2>
@@ -65,37 +65,46 @@
                                          image="/resources/img/wuerfel#{gameCtrl.lastResultPlayer}.png"
                                          alt="#{msg.diceOne}"
                                          tabindex="4">
-                            <f:ajax render="dice :field :info"/>
+                          <f:ajax render="dice :field :info" onevent="doAnimations"/>
                         </h:commandButton>
 		    </div>
+                <h:outputScript id="playerData">
+                                var players = [
+                                {
+                                    id: "#player1",
+                                    pos: "#{gameCtrl.game.player.position}",
+                                    prevPos: "#{gameCtrl.game.player.getPositionMinusT(-1)}",
+                                    diceNum: "#{gameCtrl.lastResultPlayer}"
+                                },
+                                {
+                                    id: "#player2",
+                                    pos: "#{gameCtrl.game.computer.position}",
+                                    prevPos: "#{gameCtrl.game.computer.getPositionMinusT(-1)}",
+                                    diceNum: "#{gameCtrl.lastResultComputer}"
+                                }
+                            ];
+                </h:outputScript>
 		    <script type="text/javascript">
 			//<![CDATA[
-                        
-                        function moveCar(oldPos1, oldPos2, pos1, pos2) {
-                            
-                            
-                        }
-                        function runAnimation(moves, on_finished) {
+                        function runAnimation(moves) {
                             move = moves.shift();
 
                             if (!move) {
-                                on_finished();
                                 return;
                             }
 
                             $(move.id).fadeOut(700, function() {
                                 $("ol#road li").eq(move.target).append($(move.id));
                                 $(move.id).fadeIn(700, function() {
-                                    runAnimation(moves, on_finished);
+                                    runAnimation(moves);
                                 });
                             });
                         }
 
-                        $(function() {
-                            var players = [
-
-                            ];
-
+                        function doAnimations(ajaxResult) {
+                            if(ajaxResult.status !== "success")
+                                return;
+                       
                             var moves = [];
                             players.forEach(function(p) {
                                 // p.prevPos == -1 at game start; don't animate that
@@ -103,7 +112,7 @@
                                     // Move car to previous position
                                     $("ol#road li").eq(p.prevPos).append($(p.id));
                                     // Animate to prevPos + dice
-                                 //   moves.push({id: p.id, target: Math.min(p.prevPos + p.diceNum, <%= Formel0Game.NUM_FIELDS - 1 %>)});
+                                    moves.push({id: p.id, target: Math.min(p.prevPos + p.diceNum, "#{gameCtrl.game.LASTFIELD}")});
                                     // Did we land on an oil spit? Then one more animation is needed
                                     if (p.pos == 0) {
                                         moves.push({id: p.id, target: 0});
@@ -112,10 +121,9 @@
                             });
 
                             if (moves.length > 0) {
-                                prepareAnimation();
-                                runAnimation(moves, completeAnimation);
+                                runAnimation(moves);
                             }
-                        });
+                        }
 			//]]>
 		    </script>
             </ui:define>

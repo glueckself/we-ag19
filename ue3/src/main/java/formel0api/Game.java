@@ -21,6 +21,7 @@ import javax.faces.bean.SessionScoped;
 public class Game {
     private static final int LAST_FIELD = 6;
     private static final int[] oilSpits =  {2, 5};
+   
     private Field fields[] = new Field[LAST_FIELD+1];
     /**
      * Player playing the game
@@ -181,5 +182,9 @@ public class Game {
     
     public Field getField(int index) {
         return fields[index];
+    }
+    
+    public int getLASTFIELD() {
+        return LAST_FIELD;
     }
 }
