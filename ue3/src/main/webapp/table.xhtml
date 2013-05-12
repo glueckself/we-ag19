@@ -71,7 +71,8 @@
 		    <div id="player" class="player">
 			<h2 class="accessibility">#{msg.diceArea}</h2>
 			<span class="accessibility">#{msg.whosNext}</span><div id="currentPlayerName">Super Mario</div>
-			<input id="dice" type="image" tabindex="4" src="resources/img/wuerfel1.png" title="W&uuml;rfel mit einer Eins" alt="W&uuml;rfel mit einer Eins" />
+			<!--<input id="dice" type="image" tabindex="4" src="resources/img/wuerfel1.png" title="W&uuml;rfel mit einer Eins" alt="W&uuml;rfel mit einer Eins" />-->
+			<h:commandButton id="dice" value="#{gameCtrl.name}" action="#{gameCtrl.test}" />
 		    </div>
 		    <script type="text/javascript">
 			//<![CDATA[

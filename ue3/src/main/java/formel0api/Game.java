@@ -10,9 +10,14 @@
  */
 package formel0api;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 /**
  * Class representing a Formel 0 game
  */
+@ManagedBean(name="game")
+@SessionScoped
 public class Game {
 
     private static final int LAST_FIELD = 6;
