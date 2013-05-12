@@ -1,4 +1,4 @@
-package userDB;
+package formel0controller;
 
 import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
@@ -10,6 +10,9 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
+import userDB.Sex;
+import userDB.User;
+import userDB.UserDB;
 
 @ManagedBean
 @RequestScoped

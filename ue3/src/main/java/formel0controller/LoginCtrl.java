@@ -1,8 +1,10 @@
-package userDB;
+package formel0controller;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import userDB.User;
+import userDB.UserDB;
 
 @ManagedBean
 @SessionScoped
