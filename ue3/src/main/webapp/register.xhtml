@@ -33,7 +33,7 @@
                                                 validatorMessage="#{msg.firstNameInvalid}">
                                     <f:validateRegex pattern="^[a-zA-Z]+$" />
                                 </h:inputText>
-                                <h:messages for="firstname" class="validation_error" />
+                                <h:messages for="firstname" id="firstname_messages" class="validation_error" />
                             </li>
                             <li>
                                 <h:outputLabel for="lastname" value="#{msg.lastName}: " />
@@ -42,7 +42,7 @@
                                                 validatorMessage="#{msg.lastNameInvalid}">
                                     <f:validateRegex pattern="^[a-zA-Z]+$" />
                                 </h:inputText>
-                                <h:messages for="lastname" class="validation_error" />
+                                <h:messages for="lastname" id="lastname_messages" class="validation_error" />
                             </li>
                             <li>
                                 <h:outputLabel for="birthday" value="#{msg.birthday}: " />
@@ -52,7 +52,7 @@
                                                 converterMessage="#{msg.birthdayInvalid}">
                                     <f:converter converterId="userDB.DateConverter" />
                                 </h:inputText>
-                                <h:messages for="birthday" class="validation_error" />
+                                <h:messages for="birthday" id="birthday_messages" class="validation_error" />
                             </li>
                             <li>
                                 <h:outputLabel  for="sex" value="#{msg.sex}: " />
@@ -61,7 +61,7 @@
                                     <f:selectItem id="sex_f" itemLabel="#{msg.female}" itemValue="#{registrationCtrl.sexFemale}" />
                                     <f:selectItem id="sex_m" itemLabel="#{msg.male}" itemValue="#{registrationCtrl.sexMale}" />
                                 </h:selectOneMenu>
-                                <h:messages for="sex" class="validation_error" />
+                                <h:messages for="sex" id="sex_messages" class="validation_error" />
                             </li>
                         </ol>
                     </fieldset>
@@ -74,7 +74,7 @@
                                 <h:inputText    id="username" value="#{registrationCtrl.username}" tabindex="7"
                                                 required="true" requiredMessage="#{msg.usernameRequired}"
                                                 validator="#{registrationCtrl.validateUsername}" />
-                                <h:messages for="username" class="validation_error" />
+                                <h:messages for="username" id="username_messages" class="validation_error" />
                             </li>
                             <li>
                                 <h:outputLabel for="password" value="#{msg.password}: " />
@@ -83,7 +83,7 @@
                                                 validatorMessage="#{msg.passwordInvalid}">
                                     <f:validateRegex pattern="(.*[a-zA-Z].*[0-9].*|.*[0-9].*[a-zA-Z].*)" />
                                 </h:inputSecret>
-                                <h:messages for="password" class="validation_error" />
+                                <h:messages for="password" id="password_messages" class="validation_error" />
                             </li>
                         </ol>
                     </fieldset>
