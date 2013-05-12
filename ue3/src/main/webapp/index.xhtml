@@ -8,11 +8,12 @@
     <body>
         <ui:composition template="siteDesign.xhtml">
             <ui:param name="pageSubTitle" value="#{msg.login}" />
+            <ui:param name="contentId" value="content" />
 
             <ui:define name="navigation">
                 <ul title="Navigation">
                     <li>
-                        <h:outputLink value="faces/register.xhtml">#{msg.registerButton}</h:outputLink>
+                        <h:outputLink value="faces/register.xhtml" id="register">#{msg.registerButton}</h:outputLink>
                     </li>
                 </ul>
             </ui:define>

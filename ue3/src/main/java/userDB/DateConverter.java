@@ -32,6 +32,9 @@ public class DateConverter implements Converter {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object objectValue) throws ConverterException {
+        if (objectValue == null || !(objectValue instanceof GregorianCalendar))
+            return "";
+
         GregorianCalendar date = (GregorianCalendar)objectValue;
         return String.format("%02d.%02d.%04d", date.get(Calendar.DAY_OF_MONTH), date.get(Calendar.MONTH)+1, date.get(Calendar.YEAR));
     }
