@@ -99,6 +99,10 @@ public class Game {
         return currentRound;
     }
 
+    public void nextRound() {
+        currentRound++;
+    }
+
     /**
      * Rolls the dice for the player and updates the position of the player's
      * car according to the score
@@ -114,9 +118,6 @@ public class Game {
         int score = dice.roll();
 
         int position = player.getPosition();
-
-        // next round
-        currentRound++;
 
         /**
          * Move on field

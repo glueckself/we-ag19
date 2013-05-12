@@ -47,6 +47,7 @@ public class GameCtrl {
     }
 
     public String rollDice() {
+        getGame().nextRound();
         lastResultPlayer=getGame().rollthedice(getGame().getPlayer());
         lastResultComputer=getGame().rollthedice(getGame().getComputer());
         return "/table.xhtml";
