@@ -78,11 +78,11 @@
                             </li>
                             <li>
                                 <h:outputLabel for="password" value="#{msg.password}: " />
-                                <h:inputText    id="password" value="#{registrationCtrl.password}" tabindex="8"
+                                <h:inputSecret  id="password" value="#{registrationCtrl.password}" tabindex="8"
                                                 required="true" requiredMessage="#{msg.passwordRequired}"
                                                 validatorMessage="#{msg.passwordInvalid}">
                                     <f:validateRegex pattern="(.*[a-zA-Z].*[0-9].*|.*[0-9].*[a-zA-Z].*)" />
-                                </h:inputText>
+                                </h:inputSecret>
                                 <h:messages for="password" class="validation_error" />
                             </li>
                         </ol>
