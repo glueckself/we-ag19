@@ -31,7 +31,6 @@ public class User {
         userName=_userName;
         password=_password;
         birthday=_birthday;
-        startNewGame();
     }
 
     public String getFirstName() {
@@ -59,6 +58,9 @@ public class User {
     }
 
     public Game getCurrentGame() {
+        if (currentGame == null) {
+            startNewGame();
+        }
         return currentGame;
     }
 
