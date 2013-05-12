@@ -37,7 +37,7 @@
                 <tr><th id="player1NameLabel" class="label">#{msg.player1}</th><td id="player1Name" class="data">#{gameCtrl.game.player.name}</td></tr>
                 <tr><th id="player2NameLabel" class="label">#{msg.player2}</th><td id="player2Name" class="data">#{gameCtrl.game.computer.name}</td></tr>
 			</table>    	  
-                    </h:panelGroup>>
+                    </h:panelGroup>
                     
                     <h:panelGroup layout="block" id="field" class="field">
 			<h2 class="accessibility">#{msg.gameArea}</h2>
@@ -59,14 +59,16 @@
 		    <div id="player" class="player">
 			<h2 class="accessibility">#{msg.diceArea}</h2>
                         <span class="accessibility">#{msg.whosNext}</span><div id="currentPlayerName">#{gameCtrl.game.player.name}</div>
-                        <h:commandButton disabled="#{gameCtrl.game.gameOver}"
-                                         id="dice"
-                                         action="#{gameCtrl.rollDice()}"
-                                         image="/resources/img/wuerfel#{gameCtrl.lastResultPlayer}.png"
-                                         alt="#{msg.diceOne}"
-                                         tabindex="4">
-                            <f:ajax render="dice :field :info"/>
-                        </h:commandButton>
+                        <h:form id="form">
+                            <h:commandButton disabled="#{gameCtrl.game.gameOver}"
+                                             id="dice"
+                                             action="#{gameCtrl.rollDice}"
+                                             image="/resources/img/wuerfel#{gameCtrl.lastResultPlayer}.png"
+                                             alt="#{msg.diceOne}"
+                                             tabindex="4">
+                                <f:ajax render="dice :field :info"/>
+                            </h:commandButton>
+                        </h:form>
 		    </div>
 		    <script type="text/javascript">
 			//<![CDATA[
