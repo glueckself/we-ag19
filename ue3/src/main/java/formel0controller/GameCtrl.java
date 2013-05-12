@@ -1,6 +1,7 @@
 package formel0controller;
 
 import formel0api.Game;
+import formel0api.Player;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -46,8 +47,8 @@ public class GameCtrl {
     }
 
     public String rollDice() {
-        lastResultComputer=getGame().rollthedice(getGame().getComputer());
         lastResultPlayer=getGame().rollthedice(getGame().getPlayer());
+        lastResultComputer=getGame().rollthedice(getGame().getComputer());
         return "/table.xhtml";
     }
 
@@ -64,5 +65,14 @@ public class GameCtrl {
 
     public int getLastResultComputer() {
         return lastResultComputer;
+    }
+
+    public String getLeaderName() {
+        Player leader = getGame().getLeader();
+        if (leader != null) {
+            return leader.getName();
+        } else {
+            return JSFHelper.getLocalized("noUniqueLeader");
+        }
     }
 }

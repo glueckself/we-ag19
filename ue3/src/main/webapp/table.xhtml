@@ -27,7 +27,7 @@
 		    <h:panelGroup layout="block" id="info" class="info">
 			<h2>#{msg.gameInfo}</h2>
 			<table summary="#{msg.gameTableSummary}">
-                <tr><th id="leaderLabel" class="label">#{msg.leadingPlayer}</th><td id="leader" class="data">#{gameCtrl.game.leader.name}</td></tr>
+                <tr><th id="leaderLabel" class="label">#{msg.leadingPlayer}</th><td id="leader" class="data">#{gameCtrl.leaderName}</td></tr>
                 <tr><th id="roundLabel" class="label">#{msg.round}</th><td id="round" class="data">#{gameCtrl.game.currentRound}</td></tr>
                 <tr><th id="timeLabel" class="label">#{msg.time}</th><td id="time" class="data">#{gameCtrl.spentTimeFormatted}</td></tr>
                 <tr><th id="computerScoreLabel" class="label">#{msg.diceResult} <em>${gameCtrl.game.computer.name}</em></th><td id="computerScore" class="data">#{gameCtrl.lastResultComputer}</td></tr>

@@ -1,7 +1,6 @@
 package formel0controller;
 
 import java.util.GregorianCalendar;
-import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -106,23 +105,17 @@ public class RegistrationCtrl {
     public void validateUsername(FacesContext ctx, UIComponent component, Object value) throws ValidatorException {
         String str = (String) value;
         if (!Pattern.compile("^[a-zA-Z]+$").matcher(str).matches()) {
-            throw new ValidatorException(new FacesMessage(getLocalized("usernameInvalid")));
+            throw new ValidatorException(new FacesMessage(JSFHelper.getLocalized("usernameInvalid")));
         }
         if (getUserDB().hasUser(str)) {
-            throw new ValidatorException(new FacesMessage(getLocalized("usernameExists")));
+            throw new ValidatorException(new FacesMessage(JSFHelper.getLocalized("usernameExists")));
         }
     }
 
     public void validateDateOfBirth(FacesContext ctx, UIComponent component, Object value) throws ValidatorException {
         GregorianCalendar date = (GregorianCalendar) value;
         if (date.after(new GregorianCalendar())) {
-            throw new ValidatorException(new FacesMessage(getLocalized("birthdayInFuture")));
+            throw new ValidatorException(new FacesMessage(JSFHelper.getLocalized("birthdayInFuture")));
         }
-    }
-
-    private String getLocalized(String key) {
-        FacesContext context = FacesContext.getCurrentInstance();
-        ResourceBundle text = ResourceBundle.getBundle("i18n", context.getViewRoot().getLocale());
-        return text.getString(key);
     }
 }
