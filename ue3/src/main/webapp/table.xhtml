@@ -11,15 +11,17 @@
 		<ui:param name="contentId" value="main-area" />
 
 		<ui:define name="navigation">
+            <h:form id="navForm">
                 <ul title="Navigation">
-		    <li>
-			<h:outputLink id="startNewGame" value="#" tabindex="1">#{msg.newGame}</h:outputLink>
-		    </li>
-		    <li>
-			<h:outputLink id="logout" value="#" tabindex="2">#{msg.logout}</h:outputLink>
-		    </li>
+                    <li>
+                        <h:commandButton id="startNewGame" value="#{msg.newGame}" action="#{gameCtrl.startNewGame}" tabindex="1" />
+                    </li>
+                    <li>
+                        <h:commandButton id="logout" value="#{msg.logout}" action="#{loginCtrl.logout}" tabindex="2" />
+                    </li>
                 </ul>
-            </ui:define>
+            </h:form>
+        </ui:define>
 
             <ui:define name="content">
 		    <div class="info">
@@ -28,7 +30,7 @@
                 <tr><th id="leaderLabel" class="label">#{msg.leadingPlayer}</th><td id="leader" class="data">#{gameCtrl.game.leader.name}</td></tr>
                 <tr><th id="roundLabel" class="label">#{msg.round}</th><td id="round" class="data">#{gameCtrl.game.currentRound}</td></tr>
                 <tr><th id="timeLabel" class="label">#{msg.time}</th><td id="time" class="data">#{gameCtrl.spentTimeFormatted}</td></tr>
-                <tr><th id="computerScoreLabel" class="label">#{msg.diceResult}<em>${gameCtrl.game.computer.name}</em></th><td id="computerScore" class="data">#{gameCtrl.game.computer.lastDiceRoll}</td></tr>
+                <tr><th id="computerScoreLabel" class="label">#{msg.diceResult} <em>${gameCtrl.game.computer.name}</em></th><td id="computerScore" class="data">#{gameCtrl.game.computer.lastDiceRoll}</td></tr>
 			</table>  
 			<h2>#{msg.player}</h2>
 			<table summary="#{msg.playerTableSummary}">

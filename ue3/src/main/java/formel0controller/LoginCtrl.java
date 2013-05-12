@@ -3,6 +3,8 @@ package formel0controller;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import userDB.User;
 import userDB.UserDB;
 
@@ -48,9 +50,6 @@ public class LoginCtrl
     public User getUser() {
         return user;
     }
-//    public void setUser(User user) {
-//        throw new Error();
-//    }
 
     public boolean isLoginValid() {
         return (user != null);
@@ -66,5 +65,10 @@ public class LoginCtrl
         } else {
             return "/table.xhtml";
         }
+    }
+
+    public String logout() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "/index.xhtml";
     }
 }
