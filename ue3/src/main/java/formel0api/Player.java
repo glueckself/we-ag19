@@ -83,16 +83,5 @@ public class Player {
             return history.get(index);
         }
         return -1;
-    }
-
-    private int lastDiceRoll = 0;
-
-    public int getLastDiceRoll() {
-        return lastDiceRoll;
-    }
-
-    public void setLastDiceRoll(int lastDiceRoll) {
-        this.lastDiceRoll = lastDiceRoll;
-    }
-    
+    }   
 }

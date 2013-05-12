@@ -9,25 +9,31 @@ import userDB.User;
 @ManagedBean
 @SessionScoped
 public class GameCtrl {
-    @ManagedProperty(value = "#{loginCtrl.user}")
-    User user;
+    @ManagedProperty(value = "#{loginCtrl}")
+    LoginCtrl loginCtrl;
+    
+    private int lastResultPlayer;
+    private int lastResultComputer;
+    
+    public GameCtrl() {
+        lastResultPlayer=1;
+        lastResultComputer=0;
+    }
 
-//    @ManagedProperty(value = "#{loginCtrl.user.currentGame}")
-//    Game game;
-//
-//    public Game getGame() {
-//        return game;
-//    }
+    public LoginCtrl getLoginCtrl() {
+        return loginCtrl;
+    }
+
+    public void setLoginCtrl(LoginCtrl loginCtrl) {
+        this.loginCtrl = loginCtrl;
+    }
 
     public User getUser() {
-        return user;
+        return loginCtrl.getUser();
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
     public Game getGame() {
-        return user.getCurrentGame();
+        return getUser().getCurrentGame();
     }
 
     public String getSpentTimeFormatted() {
@@ -36,7 +42,25 @@ public class GameCtrl {
         long part_seconds = total_seconds % 60;
         long total_minutes = total_seconds / 60;
         
-        return String.format("%02d:%02d", total_minutes, total_seconds);
+        return String.format("%02d:%02d", total_minutes, part_seconds);
     }
 
+    public String rollDice() {
+        lastResultComputer=getGame().rollthedice(getGame().getComputer());
+        lastResultPlayer=getGame().rollthedice(getGame().getPlayer());
+        return "/table.xhtml";
+    }
+
+    public String startNewGame() {
+        getUser().startNewGame();
+        return "/table.xhtml";
+    }
+
+    public int getLastResultPlayer() {
+        return lastResultPlayer;
+    }
+
+    public int getLastResultComputer() {
+        return lastResultComputer;
+    }
 }
