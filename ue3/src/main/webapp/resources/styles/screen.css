@@ -96,6 +96,19 @@ div#navigation a:hover {
     font-size: 1em;
 }
 
+#navForm input {
+    border: none;
+    background-color: transparent;
+    color: #FFFFFF;
+    text-decoration: none;
+    font: 1em arial,sans-serif;
+    padding: 0;
+}
+
+#navForm input:hover {
+    text-decoration: underline;
+}
+
 div#content {
     padding: 1em;
     font: 1em arial,sans-serif;
