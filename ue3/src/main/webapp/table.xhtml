@@ -14,7 +14,7 @@
             <h:form id="navForm">
                 <ul title="Navigation">
                     <li>
-                        <h:commandButton id="startNewGame" value="#{msg.newGame}" action="#{gameCtrl.startNewGame}" tabindex="1" />
+                        <h:commandButton id="startNewGame" value="#{msg.newGame}" action="#{gameCtrl.startNewGame}" tabindex="1"/>
                     </li>
                     <li>
                         <h:commandButton id="logout" value="#{msg.logout}" action="#{loginCtrl.logout}" tabindex="2" />
@@ -38,54 +38,84 @@
                 <tr><th id="player2NameLabel" class="label">#{msg.player2}</th><td id="player2Name" class="data">#{gameCtrl.game.computer.name}</td></tr>
 			</table>    	  
                     </h:panelGroup>>
+                    
                     <h:panelGroup layout="block" id="field" class="field">
 			<h2 class="accessibility">#{msg.gameArea}</h2>
 			<ol id="road">
-			    <li id="start_road">
-				<span class="accessibility">#{msg.startpos}</span>
-			    </li>
-			    <li class="empty_road" id="road_1">
-				<span class="accessibility">#{msg.field2}</span>
-			    </li>
-			    <li class="oil_road" id="road_2">
-				<span class="accessibility">#{msg.field3}</span>
-				<span id="player1">
-				    <span class="accessibility"><em>#{msg.player1}</em></span>
-				</span>
-			    </li>
-			    <li class="empty_road" id="road_3">
-				<span class="accessibility">#{msg.field4}</span>
-			    </li>
-			    <li class="empty_road" id="road_4">
-				<span class="accessibility">#{msg.field5}</span>
-				<span id="player2">
-				    <span class="accessibility"><em>#{msg.player2}</em></span>
-				</span>
-			    </li>
-			    <li class="oil_road" id="road_5">
-				<span class="accessibility">#{msg.field6}</span>
-			    </li>
-			    <li id="finish_road">
-				<span class="accessibility">#{msg.endPos}</span>
-			    </li>
+                            <ui:repeat value="#{gameCtrl.game.fields}" var="field" varStatus="pos">
+                                <ui:param name='roadId' value='road_#{pos.index}'/>
+                                <li id="#{pos.first ? 'start_road' : pos.last ? 'finish_road' : roadId}" class="#{field.oilSpit? 'oil_road' : 'empty_road'}">
+                                    <h:panelGroup rendered="#{gameCtrl.game.player.position == pos.index}">
+                                            <span id="player1"><span class="accessibility"><em>#{msg.player1}</em></span></span>
+                                    </h:panelGroup>
+                                    <h:panelGroup rendered="#{gameCtrl.game.computer.position == pos.index}">
+                                        <span id="player2"> <span class="accessibility"><em>#{msg.player2}</em></span></span>
+                                    </h:panelGroup>
+                                </li>
+                            </ui:repeat>
 			</ol>
-                    </h:panelGroup>
+                    </h:panelGroup> 
+                                      
 		    <div id="player" class="player">
 			<h2 class="accessibility">#{msg.diceArea}</h2>
                         <span class="accessibility">#{msg.whosNext}</span><div id="currentPlayerName">#{gameCtrl.game.player.name}</div>
-                        <h:commandButton disabled="#{gameCtrl.game.gameOver}" id="dice" action="#{gameCtrl.rollDice()}" image="/resources/img/wuerfel#{gameCtrl.lastResultPlayer}.png" alt="#{msg.diceOne}" tabindex="4">
+                        <h:commandButton disabled="#{gameCtrl.game.gameOver}"
+                                         id="dice"
+                                         action="#{gameCtrl.rollDice()}"
+                                         image="/resources/img/wuerfel#{gameCtrl.lastResultPlayer}.png"
+                                         alt="#{msg.diceOne}"
+                                         tabindex="4">
                             <f:ajax render="dice :field :info"/>
                         </h:commandButton>
 		    </div>
 		    <script type="text/javascript">
 			//<![CDATA[
-			function moveCar() {
-			    $("#player1").fadeOut(700, function() {
-				$("#player1").appendTo("#start_road");
-				$("#player1").fadeIn(700);
-			    });
-			    return false;
-			};
+                        
+                        function moveCar(oldPos1, oldPos2, pos1, pos2) {
+                            
+                            
+                        }
+                        function runAnimation(moves, on_finished) {
+                            move = moves.shift();
+
+                            if (!move) {
+                                on_finished();
+                                return;
+                            }
+
+                            $(move.id).fadeOut(700, function() {
+                                $("ol#road li").eq(move.target).append($(move.id));
+                                $(move.id).fadeIn(700, function() {
+                                    runAnimation(moves, on_finished);
+                                });
+                            });
+                        }
+
+                        $(function() {
+                            var players = [
+
+                            ];
+
+                            var moves = [];
+                            players.forEach(function(p) {
+                                // p.prevPos == -1 at game start; don't animate that
+                                if (p.prevPos >= 0) {
+                                    // Move car to previous position
+                                    $("ol#road li").eq(p.prevPos).append($(p.id));
+                                    // Animate to prevPos + dice
+                                 //   moves.push({id: p.id, target: Math.min(p.prevPos + p.diceNum, <%= Formel0Game.NUM_FIELDS - 1 %>)});
+                                    // Did we land on an oil spit? Then one more animation is needed
+                                    if (p.pos == 0) {
+                                        moves.push({id: p.id, target: 0});
+                                    }
+                                }
+                            });
+
+                            if (moves.length > 0) {
+                                prepareAnimation();
+                                runAnimation(moves, completeAnimation);
+                            }
+                        });
 			//]]>
 		    </script>
             </ui:define>

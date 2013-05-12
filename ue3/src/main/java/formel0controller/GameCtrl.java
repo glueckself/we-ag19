@@ -53,6 +53,8 @@ public class GameCtrl {
 
     public String startNewGame() {
         getUser().startNewGame();
+        lastResultComputer=0;
+        lastResultPlayer=1;
         return "/table.xhtml";
     }
 

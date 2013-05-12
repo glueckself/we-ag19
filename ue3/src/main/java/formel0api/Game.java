@@ -19,8 +19,9 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean(name="game")
 @SessionScoped
 public class Game {
-
     private static final int LAST_FIELD = 6;
+    private static final int[] oilSpits =  {2, 5};
+    private Field fields[] = new Field[LAST_FIELD+1];
     /**
      * Player playing the game
      */
@@ -50,12 +51,26 @@ public class Game {
     // Current round (game starts at round 1)
     private int currentRound = 1;
 
+
+    private boolean isOilSpit(int pos) {
+        for(int i=0; i < oilSpits.length; i++) {
+            if(pos == oilSpits[i])
+                return true;
+        }
+        
+        return false;
+    }
     /**
      * Constructs a new {@link Game}
      */
     public Game(Player player, Player computer) {
         this.player = player;
         this.computer = computer;
+        
+        fields[0] = new Field(isOilSpit(0));
+        for(int i=1; i<(fields.length-1); i++) {
+            fields[i] = new Field(isOilSpit(i));
+        }
     }
 
     /**
@@ -93,8 +108,7 @@ public class Game {
      */
     public int rollthedice(Player player) {
         if (gameOver) {
-            throw new IllegalArgumentException(
-                    "Game is over. Rolling the dice is not allowed.");
+            return player.getPosition();
         }
 
         int score = dice.roll();
@@ -113,9 +127,9 @@ public class Game {
         /**
          * Test if deadly field was reached
          */
-        if (newposition == 2 || newposition == 5) {
-            newposition = 0;
-            player.setPosition(newposition);
+        if(isOilSpit(newposition)) {
+            newposition=0;
+            player.setPosition(newposition);  
         }
 
         /**
@@ -159,5 +173,13 @@ public class Game {
      */
     public Player getComputer() {
         return computer;
+    }
+    
+    public Field[] getFields() {
+        return fields;
+    }
+    
+    public Field getField(int index) {
+        return fields[index];
     }
 }
