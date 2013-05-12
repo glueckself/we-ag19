@@ -25,15 +25,15 @@
 		    <div class="info">
 			<h2>#{msg.gameInfo}</h2>
 			<table summary="#{msg.gameTableSummary}">
-			    <tr><th id="leaderLabel" class="label">#{msg.leadingPlayer}</th><td id="leader" class="data">Super C</td></tr>
-			    <tr><th id="roundLabel" class="label">#{msg.round}</th><td id="round" class="data">1</td></tr>
-			    <tr><th id="timeLabel" class="label">#{msg.time}</th><td id="time" class="data">02:30</td></tr>
-			    <tr><th id="computerScoreLabel" class="label">#{msg.diceResult}<em>Super C</em></th><td id="computerScore" class="data">3</td></tr>
+                <tr><th id="leaderLabel" class="label">#{msg.leadingPlayer}</th><td id="leader" class="data">#{gameCtrl.game.leader.name}</td></tr>
+                <tr><th id="roundLabel" class="label">#{msg.round}</th><td id="round" class="data">#{gameCtrl.game.currentRound}</td></tr>
+                <tr><th id="timeLabel" class="label">#{msg.time}</th><td id="time" class="data">#{gameCtrl.spentTimeFormatted}</td></tr>
+                <tr><th id="computerScoreLabel" class="label">#{msg.diceResult}<em>${gameCtrl.game.computer.name}</em></th><td id="computerScore" class="data">#{gameCtrl.game.computer.lastDiceRoll}</td></tr>
 			</table>  
 			<h2>#{msg.player}</h2>
 			<table summary="#{msg.playerTableSummary}">
-			    <tr><th id="player1NameLabel" class="label">#{msg.player1}</th><td id="player1Name" class="data">Super Mario</td></tr>
-			    <tr><th id="player2NameLabel" class="label">#{msg.player2}</th><td id="player2Name" class="data">Super C</td></tr>
+                <tr><th id="player1NameLabel" class="label">#{msg.player1}</th><td id="player1Name" class="data">#{gameCtrl.game.player.name}</td></tr>
+                <tr><th id="player2NameLabel" class="label">#{msg.player2}</th><td id="player2Name" class="data">#{gameCtrl.game.computer.name}</td></tr>
 			</table>    	  
 		    </div>
 		    <div id="field" class="field">
@@ -72,7 +72,7 @@
 			<h2 class="accessibility">#{msg.diceArea}</h2>
 			<span class="accessibility">#{msg.whosNext}</span><div id="currentPlayerName">Super Mario</div>
 			<!--<input id="dice" type="image" tabindex="4" src="resources/img/wuerfel1.png" title="W&uuml;rfel mit einer Eins" alt="W&uuml;rfel mit einer Eins" />-->
-			<h:commandButton id="dice" value="#{gameCtrl.name}" action="#{gameCtrl.test}" />
+            <h:commandButton id="dice" value="#{gameCtrl.game.player.name}" action="#" />
 		    </div>
 		    <script type="text/javascript">
 			//<![CDATA[

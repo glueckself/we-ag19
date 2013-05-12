@@ -46,6 +46,9 @@ public class LoginCtrl
     public User getUser() {
         return user;
     }
+//    public void setUser(User user) {
+//        throw new Error();
+//    }
 
     public boolean isLoginValid() {
         return (user != null);

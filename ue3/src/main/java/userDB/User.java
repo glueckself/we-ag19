@@ -1,5 +1,7 @@
 package userDB;
 
+import formel0api.Game;
+import formel0api.Player;
 import java.beans.PropertyChangeSupport;
 import java.util.GregorianCalendar;
 
@@ -19,6 +21,8 @@ public class User {
     
     private String userName;
     private String password;
+
+    private Game currentGame;
     
     public User(String _firstName, String _lastName, Sex _sex, String _userName, String _password, GregorianCalendar _birthday) {
         firstName=_firstName;
@@ -27,6 +31,7 @@ public class User {
         userName=_userName;
         password=_password;
         birthday=_birthday;
+        startNewGame();
     }
 
     public String getFirstName() {
@@ -51,5 +56,15 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public Game getCurrentGame() {
+        return currentGame;
+    }
+
+    public void startNewGame() {
+    	Player player = new Player(firstName + " " + lastName);
+    	Player computer = new Player("Super C");
+        currentGame = new Game(player, computer);
     }
 }

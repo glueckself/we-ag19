@@ -1,5 +1,6 @@
 package userDB;
 
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ApplicationScoped;
@@ -11,6 +12,10 @@ public class UserDB {
     
     public UserDB() {
         users = new HashMap<String,User>();
+
+        // FOR TESTING ONLY
+        User testUser = new User("abc", "def", Sex.FEMALE, "hi", "h1", new GregorianCalendar(1000,1,1));
+        registerUser(testUser);
     }
 
     // Returns the User object if login is successful, null otherwise

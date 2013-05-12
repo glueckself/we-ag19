@@ -47,6 +47,8 @@ public class Game {
      * Time already spent in this game
      */
     private long spenttime;
+    // Current round (game starts at round 1)
+    private int currentRound = 1;
 
     /**
      * Constructs a new {@link Game}
@@ -78,6 +80,10 @@ public class Game {
         return spenttime;
     }
 
+    public int getCurrentRound() {
+        return currentRound;
+    }
+
     /**
      * Rolls the dice for the player and updates the position of the player's
      * car according to the score
@@ -94,6 +100,9 @@ public class Game {
         int score = dice.roll();
 
         int position = player.getPosition();
+
+        // next round
+        currentRound++;
 
         /**
          * Move on field
