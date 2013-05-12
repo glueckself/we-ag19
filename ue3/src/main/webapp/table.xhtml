@@ -70,19 +70,21 @@
 		    </div>
 		    <div id="player" class="player">
 			<h2 class="accessibility">#{msg.diceArea}</h2>
-			<span class="accessibility">#{msg.whosNext}</span><div id="currentPlayerName">Super Mario</div>
+                        <span class="accessibility">#{msg.whosNext}</span><div id="currentPlayerName">#{gameCtrl.game.player.name}}</div>
 			<!--<input id="dice" type="image" tabindex="4" src="resources/img/wuerfel1.png" title="W&uuml;rfel mit einer Eins" alt="W&uuml;rfel mit einer Eins" />-->
-            <h:commandButton id="dice" value="#{gameCtrl.game.player.name}" action="#" />
+            <h:commandButton id="dice" value="#{gameCtrl.game.player.name}" action="#{gameCtrl.rollDice}">
+                <f:ajax onevent="moveCar" />
+            </h:commandButton>
 		    </div>
 		    <script type="text/javascript">
 			//<![CDATA[
-			$("#dice").click(function() {
+			function moveCar() {
 			    $("#player1").fadeOut(700, function() {
 				$("#player1").appendTo("#start_road");
 				$("#player1").fadeIn(700);
 			    });
 			    return false;
-			});
+			};
 			//]]>
 		    </script>
             </ui:define>
