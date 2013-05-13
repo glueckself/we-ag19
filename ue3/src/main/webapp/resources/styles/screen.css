@@ -327,3 +327,7 @@ span#player2 {
     width: 50px;
     float: right;
 }
+
+#script_data {
+    display: none;
+}

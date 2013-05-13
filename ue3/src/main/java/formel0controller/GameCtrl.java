@@ -14,9 +14,13 @@ public class GameCtrl {
     LoginCtrl loginCtrl;
     
     private int lastResultPlayer;
+    private int lastRoundPosPlayer;
     private int lastResultComputer;
+    private int lastRoundPosComputer;
     
     public GameCtrl() {
+        lastRoundPosPlayer = -1;
+        lastRoundPosComputer = -1;
         lastResultPlayer=1;
         lastResultComputer=0;
     }
@@ -47,6 +51,8 @@ public class GameCtrl {
     }
 
     public String rollDice() {
+        lastRoundPosPlayer = getGame().getPlayer().getPosition();
+        lastRoundPosComputer = getGame().getComputer().getPosition();
         getGame().nextRound();
         lastResultPlayer=getGame().rollthedice(getGame().getPlayer());
         lastResultComputer=getGame().rollthedice(getGame().getComputer());
@@ -54,6 +60,8 @@ public class GameCtrl {
     }
 
     public String startNewGame() {
+        lastRoundPosPlayer = -1;
+        lastRoundPosComputer = -1;
         getUser().startNewGame();
         lastResultComputer=0;
         lastResultPlayer=1;
@@ -66,6 +74,14 @@ public class GameCtrl {
 
     public int getLastResultComputer() {
         return lastResultComputer;
+    }
+
+    public int getLastRoundPosPlayer() {
+        return lastRoundPosPlayer;
+    }
+
+    public int getLastRoundPosComputer() {
+        return lastRoundPosComputer;
     }
 
     public String getLeaderName() {

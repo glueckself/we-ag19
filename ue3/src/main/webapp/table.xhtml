@@ -1,134 +1,149 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:header="http://java.sun.com/jsf/composite/mycomponents"
-    xmlns:f="http://java.sun.com/jsf/core">
-	<body>
-	    <ui:composition template="siteDesign.xhtml">
-		<ui:param name="pageSubTitle" value="#{msg.tableTitle}" />
-		<ui:param name="contentId" value="main-area" />
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:header="http://java.sun.com/jsf/composite/mycomponents"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <body>
+        <ui:composition template="siteDesign.xhtml">
+            <ui:param name="pageSubTitle" value="#{msg.tableTitle}" />
+            <ui:param name="contentId" value="main-area" />
 
-		<ui:define name="navigation">
-            <h:form id="navForm">
-                <ul title="Navigation">
-                    <li>
-                        <h:commandButton id="startNewGame" value="#{msg.newGame}" action="#{gameCtrl.startNewGame}" tabindex="1"/>
-                    </li>
-                    <li>
-                        <h:commandButton id="logout" value="#{msg.logout}" action="#{loginCtrl.logout}" tabindex="2" />
-                    </li>
-                </ul>
-            </h:form>
-        </ui:define>
+            <ui:define name="navigation">
+                <h:form id="navForm">
+                    <ul title="Navigation">
+                        <li>
+                            <h:commandButton id="startNewGame" value="#{msg.newGame}" action="#{gameCtrl.startNewGame}" tabindex="1"/>
+                        </li>
+                        <li>
+                            <h:commandButton id="logout" value="#{msg.logout}" action="#{loginCtrl.logout}" tabindex="2" />
+                        </li>
+                    </ul>
+                </h:form>
+            </ui:define>
 
             <ui:define name="content">
-		    <h:panelGroup layout="block" id="info" class="info">
-			<h2>#{msg.gameInfo}</h2>
-			<table summary="#{msg.gameTableSummary}">
-                <tr><th id="leaderLabel" class="label">#{msg.leadingPlayer}</th><td id="leader" class="data">#{gameCtrl.leaderName}</td></tr>
-                <tr><th id="roundLabel" class="label">#{msg.round}</th><td id="round" class="data">#{gameCtrl.game.currentRound}</td></tr>
-                <tr><th id="timeLabel" class="label">#{msg.time}</th><td id="time" class="data">#{gameCtrl.spentTimeFormatted}</td></tr>
-                <tr><th id="computerScoreLabel" class="label">#{msg.diceResult} <em>${gameCtrl.game.computer.name}</em></th><td id="computerScore" class="data">#{gameCtrl.lastResultComputer}</td></tr>
-			</table>  
-			<h2>#{msg.player}</h2>
-			<table summary="#{msg.playerTableSummary}">
-                <tr><th id="player1NameLabel" class="label">#{msg.player1}</th><td id="player1Name" class="data">#{gameCtrl.game.player.name}</td></tr>
-                <tr><th id="player2NameLabel" class="label">#{msg.player2}</th><td id="player2Name" class="data">#{gameCtrl.game.computer.name}</td></tr>
-			</table>    	  
-                    </h:panelGroup>
-                    
-                    <h:panelGroup layout="block" id="field" class="field">
-			<h2 class="accessibility">#{msg.gameArea}</h2>
-			<ol id="road">
-                            <ui:repeat value="#{gameCtrl.game.fields}" var="field" varStatus="pos">
-                                <ui:param name='roadId' value='road_#{pos.index}'/>
-                                <li id="#{pos.first ? 'start_road' : pos.last ? 'finish_road' : roadId}" class="#{field.oilSpit? 'oil_road' : 'empty_road'}">
-                                    <h:panelGroup rendered="#{gameCtrl.game.player.position == pos.index}">
-                                            <span id="player1"><span class="accessibility"><em>#{msg.player1}</em></span></span>
-                                    </h:panelGroup>
-                                    <h:panelGroup rendered="#{gameCtrl.game.computer.position == pos.index}">
-                                        <span id="player2"> <span class="accessibility"><em>#{msg.player2}</em></span></span>
-                                    </h:panelGroup>
-                                </li>
-                            </ui:repeat>
-			</ol>
-                    </h:panelGroup> 
-                                      
-		    <div id="player" class="player">
-			<h2 class="accessibility">#{msg.diceArea}</h2>
-                        <span class="accessibility">#{msg.whosNext}</span><div id="currentPlayerName">#{gameCtrl.game.player.name}</div>
-                        <h:form id="form">
-                            <h:commandButton disabled="#{gameCtrl.game.gameOver}"
-                                             id="dice"
-                                             action="#{gameCtrl.rollDice}"
-                                             image="/resources/img/wuerfel#{gameCtrl.lastResultPlayer}.png"
-                                             alt="#{msg.diceOne}"
-                                             tabindex="4">
-                         	 <f:ajax render="dice :field :info" onevent="doAnimations"/>
-                            </h:commandButton>
-                        </h:form>
-		    </div>
-                <h:outputScript id="playerData">
-                                var players = [
-                                {
-                                    id: "#player1",
-                                    pos: "#{gameCtrl.game.player.position}",
-                                    prevPos: "#{gameCtrl.game.player.getPositionMinusT(-1)}",
-                                    diceNum: "#{gameCtrl.lastResultPlayer}"
-                                },
-                                {
-                                    id: "#player2",
-                                    pos: "#{gameCtrl.game.computer.position}",
-                                    prevPos: "#{gameCtrl.game.computer.getPositionMinusT(-1)}",
-                                    diceNum: "#{gameCtrl.lastResultComputer}"
-                                }
-                            ];
-                </h:outputScript>
-		    <script type="text/javascript">
-			//<![CDATA[
-                        function runAnimation(moves) {
-                            move = moves.shift();
+                <h:panelGroup layout="block" id="info" class="info">
+                    <h2>#{msg.gameInfo}</h2>
+                    <table summary="#{msg.gameTableSummary}">
+                        <tr><th id="leaderLabel" class="label">#{msg.leadingPlayer}</th><td id="leader" class="data">#{gameCtrl.leaderName}</td></tr>
+                        <tr><th id="roundLabel" class="label">#{msg.round}</th><td id="round" class="data">#{gameCtrl.game.currentRound}</td></tr>
+                        <tr><th id="timeLabel" class="label">#{msg.time}</th><td id="time" class="data">#{gameCtrl.spentTimeFormatted}</td></tr>
+                        <tr><th id="computerScoreLabel" class="label">#{msg.diceResult} <em>${gameCtrl.game.computer.name}</em></th><td id="computerScore" class="data">#{gameCtrl.lastResultComputer}</td></tr>
+                    </table>
+                    <h2>#{msg.player}</h2>
+                    <table summary="#{msg.playerTableSummary}">
+                        <tr><th id="player1NameLabel" class="label">#{msg.player1}</th><td id="player1Name" class="data">#{gameCtrl.game.player.name}</td></tr>
+                        <tr><th id="player2NameLabel" class="label">#{msg.player2}</th><td id="player2Name" class="data">#{gameCtrl.game.computer.name}</td></tr>
+                    </table>
+                </h:panelGroup>
 
-                            if (!move) {
-                                return;
-                            }
+                <h:panelGroup layout="block" id="field" class="field">
+                    <h2 class="accessibility">#{msg.gameArea}</h2>
+                    <ol id="road">
+                        <ui:repeat value="#{gameCtrl.game.fields}" var="field" varStatus="pos">
+                            <ui:param name='roadId' value='road_#{pos.index}'/>
+                            <li id="#{pos.first ? 'start_road' : pos.last ? 'finish_road' : roadId}" class="#{field.oilSpit? 'oil_road' : 'empty_road'}">
+                                <h:panelGroup rendered="#{gameCtrl.game.player.position == pos.index}">
+                                    <span id="player1"><span class="accessibility"><em>#{msg.player1}</em></span></span>
+                                </h:panelGroup>
+                                <h:panelGroup rendered="#{gameCtrl.game.computer.position == pos.index}">
+                                    <span id="player2"> <span class="accessibility"><em>#{msg.player2}</em></span></span>
+                                </h:panelGroup>
+                            </li>
+                        </ui:repeat>
+                    </ol>
+                </h:panelGroup>
 
-                            $(move.id).fadeOut(700, function() {
-                                $("ol#road li").eq(move.target).append($(move.id));
-                                $(move.id).fadeIn(700, function() {
-                                    runAnimation(moves);
-                                });
-                            });
+                <div id="player" class="player">
+                    <h2 class="accessibility">#{msg.diceArea}</h2>
+                    <span class="accessibility">#{msg.whosNext}</span><div id="currentPlayerName">#{gameCtrl.game.player.name}</div>
+                    <h:form id="form">
+                        <h:commandButton disabled="#{gameCtrl.game.gameOver}"
+                                         id="dice"
+                                         action="#{gameCtrl.rollDice}"
+                                         image="/resources/img/wuerfel#{gameCtrl.lastResultPlayer}.png"
+                                         alt="#{msg.diceOne}"
+                                         tabindex="4">
+                            <f:ajax render="dice :field :info :script_data" onevent="doAnimations"/>
+                        </h:commandButton>
+                    </h:form>
+                </div>
+
+                <h:panelGroup id="script_data">
+                    <span id="data_player_pos"><h:outputText value="#{gameCtrl.game.player.position}" /></span>
+                    <span id="data_player_prev_pos"><h:outputText value="#{gameCtrl.lastRoundPosPlayer}" /></span>
+                    <span id="data_player_dice"><h:outputText value="#{gameCtrl.lastResultPlayer}" /></span>
+                    <span id="data_computer_pos"><h:outputText value="#{gameCtrl.game.computer.position}" /></span>
+                    <span id="data_computer_prev_pos"><h:outputText value="#{gameCtrl.lastRoundPosComputer}" /></span>
+                    <span id="data_computer_dice"><h:outputText value="#{gameCtrl.lastResultComputer}" /></span>
+                    <span id="data_last_field"><h:outputText value="#{gameCtrl.game.LASTFIELD}" /></span>
+                </h:panelGroup>
+
+                <script type="text/javascript">
+                    //<![CDATA[
+                    function runAnimation(moves) {
+                        move = moves.shift();
+
+                        if (!move) {
+                            return;
                         }
 
-                        function doAnimations(ajaxResult) {
-                            if(ajaxResult.status !== "success")
-                                return;
-                       
-                            var moves = [];
-                            players.forEach(function(p) {
-                                // p.prevPos == -1 at game start; don't animate that
-                                if (p.prevPos >= 0) {
+                        $(move.id).fadeOut(700, function() {
+                            $("ol#road li").eq(move.target).append($(move.id));
+                            $(move.id).fadeIn(700, function() {
+                                runAnimation(moves);
+                            });
+                        });
+                    }
+
+                    function doAnimations(ajaxResult) {
+                        if (ajaxResult.status !== "success")
+                            return;
+
+                        var players = [
+                            {
+                                id: "#player1",
+                                pos: parseInt($("#data_player_pos").text(), 10),
+                                prevPos: parseInt($("#data_player_prev_pos").text(), 10),
+                                diceNum: parseInt($("#data_player_dice").text(), 10)
+                            },
+                            {
+                                id: "#player2",
+                                pos: parseInt($("#data_computer_pos").text(), 10),
+                                prevPos: parseInt($("#data_computer_prev_pos").text(), 10),
+                                diceNum: parseInt($("#data_computer_dice").text(), 10)
+                            }
+                        ];
+
+                        var lastField = parseInt($("#data_last_field").text(), 10);
+
+                        var moves = [];
+                        players.forEach(function(p) {
+                            // p.prevPos == -1 at game start; don't animate that
+                            if (p.prevPos >= 0) {
+                                // test for corner case when first player wins (second player would not get a dice roll => value 0)
+                                if (p.diceNum > 0) {
                                     // Move car to previous position
                                     $("ol#road li").eq(p.prevPos).append($(p.id));
                                     // Animate to prevPos + dice
-                                    moves.push({id: p.id, target: Math.min(p.prevPos + p.diceNum, "#{gameCtrl.game.LASTFIELD}")});
+                                    moves.push({id: p.id, target: Math.min(p.prevPos + p.diceNum, lastField)});
                                     // Did we land on an oil spit? Then one more animation is needed
                                     if (p.pos == 0) {
                                         moves.push({id: p.id, target: 0});
                                     }
                                 }
-                            });
-
-                            if (moves.length > 0) {
-                                runAnimation(moves);
                             }
+                        });
+
+                        if (moves.length > 0) {
+                            runAnimation(moves);
                         }
-			//]]>
-		    </script>
+                    }
+                    //]]>
+                </script>
             </ui:define>
-	</ui:composition>
+        </ui:composition>
     </body>
 </html>

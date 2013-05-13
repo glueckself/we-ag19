@@ -113,7 +113,7 @@ public class Game {
      */
     public int rollthedice(Player player) {
         if (gameOver) {
-            return player.getPosition();
+            return 0;
         }
 
         int score = dice.roll();
