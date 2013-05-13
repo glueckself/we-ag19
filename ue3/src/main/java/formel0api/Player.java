@@ -82,6 +82,6 @@ public class Player {
         if (index >= 0 && index < history.size()) {
             return history.get(index);
         }
-        return 0;
+        return -1;
     }   
 }

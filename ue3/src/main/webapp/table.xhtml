@@ -54,6 +54,12 @@
                                 </li>
                             </ui:repeat>
 			</ol>
+                        <script type="text/javascript">
+			//<![CDATA[
+
+                            
+			//]]>
+                        </script>
                     </h:panelGroup> 
                                       
 		    <div id="player" class="player">
@@ -66,26 +72,17 @@
                                              image="/resources/img/wuerfel#{gameCtrl.lastResultPlayer}.png"
                                              alt="#{msg.diceOne}"
                                              tabindex="4">
-                         	 <f:ajax render="dice :field :info" onevent="doAnimations"/>
+                         	 <f:ajax render="dice :field :info" onevent="function(data) {
+                                         doAnimations(data,
+                                                      #{gameCtrl.game.player.position},
+                                                      #{gameCtrl.game.computer.position},
+                                                      #{gameCtrl.game.player.getPositionMinusT(1)},
+                                                      #{gameCtrl.game.computer.getPositionMinusT(1)},
+                                                      #{gameCtrl.lastResultPlayer},
+                                                      #{gameCtrl.lastResultComputer}); }"/>
                             </h:commandButton>
                         </h:form>
 		    </div>
-                <h:outputScript id="playerData">
-                                var players = [
-                                {
-                                    id: "#player1",
-                                    pos: "#{gameCtrl.game.player.position}",
-                                    prevPos: "#{gameCtrl.game.player.getPositionMinusT(-1)}",
-                                    diceNum: "#{gameCtrl.lastResultPlayer}"
-                                },
-                                {
-                                    id: "#player2",
-                                    pos: "#{gameCtrl.game.computer.position}",
-                                    prevPos: "#{gameCtrl.game.computer.getPositionMinusT(-1)}",
-                                    diceNum: "#{gameCtrl.lastResultComputer}"
-                                }
-                            ];
-                </h:outputScript>
 		    <script type="text/javascript">
 			//<![CDATA[
                         function runAnimation(moves) {
@@ -103,9 +100,23 @@
                             });
                         }
 
-                        function doAnimations(ajaxResult) {
+                        function doAnimations(ajaxResult, pos1, pos2, prevPos1, prevPos2, diceResult1, diceResult2) {
                             if(ajaxResult.status !== "success")
                                 return;
+                                var players = [
+                                {
+                                    id: "#player1",
+                                    pos: pos1+1,
+                                    prevPos: prevPos1,
+                                    diceNum: diceResult1
+                                },
+                                {
+                                    id: "#player2",
+                                    pos: pos2+1,
+                                    prevPos: prevPos2,
+                                    diceNum: diceResult2
+                                }
+                            ];
                        
                             var moves = [];
                             players.forEach(function(p) {
