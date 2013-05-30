@@ -100,10 +100,17 @@
                         <h:form id="form">
                             <div>
                                 <h:commandButton id="dice" tabindex="4" action="#{lc.gc.doRound()}" disabled="#{lc.gc.gameOver}" image="#{resource[lc.gc.diceResource]}" title="#{msg.dicescore} #{lc.gc.playerScore}" alt="#{msg.dicescore} #{lc.gc.playerScore}">
-                                    <f:ajax render=":player :info :script"/>
+                                    <f:ajax render=":player :info :script :twitterMessage"/>
                                 </h:commandButton>
                             </div>
                         </h:form>
+                    </h:panelGroup>
+                    <h:panelGroup layout="block" id="twitterMessage" class="twitterMessage">
+                        <h:panelGroup layout="block" id="twitterMessageContent" class="twitterMessageContent" rendered="#{lc.gc.twitterMessageVisible}">
+                            <h:outputFormat value="#{msg.twitterMessage}">
+                                <f:param value="#{lc.gc.UUID}" />
+                            </h:outputFormat>
+                        </h:panelGroup>
                     </h:panelGroup>
                 </div>
 

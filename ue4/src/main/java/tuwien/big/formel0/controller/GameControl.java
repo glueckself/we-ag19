@@ -20,6 +20,9 @@ public class GameControl {
     int round = 1;
     String playername;
 
+    String uuid;
+    boolean twitterMessageVisible = false;
+
     public GameControl() {
         this("Susi");
     }
@@ -37,6 +40,8 @@ public class GameControl {
         computer = new Player("Deep Blue");
         this.game = new Game(player, computer);
         round = 1;
+        uuid = null;
+        twitterMessageVisible = false;
     }
 
     /**
@@ -80,6 +85,14 @@ public class GameControl {
         return game.getLeader();
     }
 
+    public String getUUID() {
+        return uuid;
+    }
+
+    public boolean isTwitterMessageVisible() {
+        return twitterMessageVisible;
+    }
+
     /**
      * Rolls the dice for the player
      */
@@ -101,15 +114,16 @@ public class GameControl {
 
             // TODO: Get UUID from the leaderboard
             Date date = new Date();
-            String uuid = "test!?";
+            uuid = "test!?";
 
             TwitterStatusMessage msg = new TwitterStatusMessage(player.getName(), uuid, date);
             try {
                 (new TwitterClient()).publishUuid(msg);
-                // TODO: Show "success" message
+                twitterMessageVisible = true;
             }
             catch(Exception e) {
                 // just drop it silently
+                e.printStackTrace();
             }
         }
     }
