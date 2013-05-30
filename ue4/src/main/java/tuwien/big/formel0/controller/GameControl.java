@@ -4,7 +4,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import formel0api.Game;
 import formel0api.Player;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
+import tuwien.big.formel0.twitter.*;
 
 @ManagedBean(name = "gc")
 @SessionScoped
@@ -85,6 +87,7 @@ public class GameControl {
         if (isGameOver()) {
             return;
         }
+
         this.playerscore = game.rollthedice(player);
         if (!isGameOver()) {
             this.computerscore = game.rollthedice(computer);
@@ -92,6 +95,23 @@ public class GameControl {
             this.computerscore = 0;
         }
         ++round;
+
+        if (isGameOver()) {
+            // this part is (and must be) run only once per game (when the game is won)
+
+            // TODO: Get UUID from the leaderboard
+            Date date = new Date();
+            String uuid = "test!?";
+
+            TwitterStatusMessage msg = new TwitterStatusMessage(player.getName(), uuid, date);
+            try {
+                (new TwitterClient()).publishUuid(msg);
+                // TODO: Show "success" message
+            }
+            catch(Exception e) {
+                // just drop it silently
+            }
+        }
     }
     
     /**
