@@ -19,8 +19,6 @@ public class RaceDriverService implements IRaceDriverService {
     @Override
     public List<RaceDriver> getRaceDrivers() throws IOException, ServiceException {
 
-        System.out.println("picasa!!");
-
         PicasawebService myService = new PicasawebService("tuwien.big.formel0");
 
         URL albumFeedUrl = new URL("https://picasaweb.google.com/data/feed/api/user/107302466601293793664");
@@ -35,24 +33,19 @@ public class RaceDriverService implements IRaceDriverService {
 
         for (PhotoEntry photo : photos.getPhotoEntries()) {
             RaceDriver driver = new RaceDriver();
-            driver.setName(photo.getTitle().getPlainText());
+
+            // name is in the description field
+            driver.setName(photo.getDescription().getPlainText());
+
             // change parameter for get() method to retrieve different image sizes
             driver.setUrl(photo.getMediaThumbnails().get(1).getUrl());
-            System.out.println(driver.getName());
-            System.out.println(driver.getUrl());
 
-            System.out.println(photo.getId());
-            URL photoFeedUrl = new URL(photo.getId());
-
-            Query tagQuery = new Query(photoFeedUrl);
-            tagQuery.setStringCustomParameter("kind", "tag");
-
-            // TODO: this line fails with a com.google.gdata.util.InvalidEntryException
-            AlbumFeed tags = myService.query(tagQuery, AlbumFeed.class);
-
-            for (TagEntry tag : tags.getTagEntries()) {
-                System.out.println(tag.getTitle().getPlainText());
-                // TODO: get wiki url from the corresponding tag
+            // get wiki url from the corresponding tag
+            for (String tag : photo.getMediaKeywords().getKeywords()) {
+                if (tag.startsWith("wiki:")) {
+                    driver.setWikiUrl(tag.replaceFirst("wiki:", "https://"));
+                    break;
+                }
             }
         }
 
