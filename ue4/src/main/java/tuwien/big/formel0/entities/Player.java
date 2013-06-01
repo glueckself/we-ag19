@@ -2,6 +2,7 @@ package tuwien.big.formel0.entities;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.NoneScoped;
+import tuwien.big.formel0.picasa.RaceDriver;
 
 @ManagedBean(name = "player")
 @NoneScoped
@@ -13,6 +14,7 @@ public class Player {
     private String password = null;
     private String birthday = null;
     private String sex = null;
+    private RaceDriver avatar = null;
 
     /**
      * Creates a new instance of Player
@@ -102,5 +104,13 @@ public class Player {
      */
     public void setSex(String sex) {
         this.sex = sex;
+    }
+
+    public RaceDriver getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(RaceDriver avatar) {
+        this.avatar = avatar;
     }
 }

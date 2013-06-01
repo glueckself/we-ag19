@@ -4,6 +4,7 @@ import tuwien.big.formel0.utilities.Utility;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -14,6 +15,8 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.validator.ValidatorException;
 import tuwien.big.formel0.entities.Player;
 import tuwien.big.formel0.entities.RegisteredPlayerPool;
+import tuwien.big.formel0.picasa.RaceDriver;
+import tuwien.big.formel0.picasa.RaceDriverService;
 
 /**
  *
@@ -30,6 +33,22 @@ public class RegisterControl {
     private RegisteredPlayerPool rpp;
     @ManagedProperty(value = "#{false}")
     private boolean registrationsuccessful;
+
+    private static List<RaceDriver> raceDrivers = null;
+
+    public List<RaceDriver> getRaceDrivers() {
+        // TODO: Load from database instead of a static variable!
+        // Initialization of database with picasa data should happen somewhere else
+        if (raceDrivers == null) {
+            try {
+                raceDrivers = (new RaceDriverService()).getRaceDrivers();
+            }
+            catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return raceDrivers;
+    }
 
     /**
      * Creates a new instance of RegisterControl
