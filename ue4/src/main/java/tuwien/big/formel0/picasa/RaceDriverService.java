@@ -47,6 +47,8 @@ public class RaceDriverService implements IRaceDriverService {
                     break;
                 }
             }
+
+            drivers.add(driver);
         }
 
         return drivers;
