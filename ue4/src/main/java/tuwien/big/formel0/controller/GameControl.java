@@ -3,10 +3,8 @@ package tuwien.big.formel0.controller;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import formel0api.Game;
-import formel0api.Player;
-import java.util.Date;
 import java.util.concurrent.TimeUnit;
-import tuwien.big.formel0.twitter.*;
+import formel0api.Player;
 
 @ManagedBean(name = "gc")
 @SessionScoped
@@ -19,9 +17,6 @@ public class GameControl {
     int computerscore = 0;
     int round = 1;
     String playername;
-
-    String uuid;
-    boolean twitterMessageVisible = false;
 
     public GameControl() {
         this("Susi");
@@ -40,8 +35,6 @@ public class GameControl {
         computer = new Player("Deep Blue");
         this.game = new Game(player, computer);
         round = 1;
-        uuid = null;
-        twitterMessageVisible = false;
     }
 
     /**
@@ -85,14 +78,6 @@ public class GameControl {
         return game.getLeader();
     }
 
-    public String getUUID() {
-        return uuid;
-    }
-
-    public boolean isTwitterMessageVisible() {
-        return twitterMessageVisible;
-    }
-
     /**
      * Rolls the dice for the player
      */
@@ -100,7 +85,6 @@ public class GameControl {
         if (isGameOver()) {
             return;
         }
-
         this.playerscore = game.rollthedice(player);
         if (!isGameOver()) {
             this.computerscore = game.rollthedice(computer);
@@ -108,24 +92,6 @@ public class GameControl {
             this.computerscore = 0;
         }
         ++round;
-
-        if (isGameOver()) {
-            // this part is (and must be) run only once per game (when the game is won)
-
-            // TODO: Get UUID from the leaderboard
-            Date date = new Date();
-            uuid = "test!?";
-
-            TwitterStatusMessage msg = new TwitterStatusMessage(player.getName(), uuid, date);
-            try {
-                (new TwitterClient()).publishUuid(msg);
-                twitterMessageVisible = true;
-            }
-            catch(Exception e) {
-                // just drop it silently
-                e.printStackTrace();
-            }
-        }
     }
     
     /**

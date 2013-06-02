@@ -1,12 +1,24 @@
 package tuwien.big.formel0.entities;
 
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.NoneScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.RequestScoped;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import tuwien.big.formel0.picasa.RaceDriver;
 
+@Entity
+@Table(name = "Player")
 @ManagedBean(name = "player")
 @NoneScoped
-public class Player {
+public class Player
+implements Serializable {
 
     private String firstname = null;
     private String lastname = null;
@@ -14,17 +26,31 @@ public class Player {
     private String password = null;
     private String birthday = null;
     private String sex = null;
-    private RaceDriver avatar = null;
+    
+    /*
+    @ManyToOne
+    private RaceDriver driver;
+    */
 
     /**
      * Creates a new instance of Player
      */
     public Player() {
     }
+    
+    public Player(Player original) {
+        firstname=original.firstname;
+        lastname=original.lastname;
+        name=original.name;
+        password=original.password;
+        birthday=original.birthday;
+        sex=original.sex;
+    }
 
     /**
      * @return the name
      */
+    @Id
     public String getName() {
         return name;
     }
@@ -106,11 +132,19 @@ public class Player {
         this.sex = sex;
     }
 
-    public RaceDriver getAvatar() {
-        return avatar;
+    
+    /**
+     * @return the driver
+     *
+    public RaceDriver getDriver() {
+        return driver;
     }
 
-    public void setAvatar(RaceDriver avatar) {
-        this.avatar = avatar;
+    /**
+     * @param driver the driver to set
+     *
+    public void setDriver(RaceDriver driver) {
+        this.driver = driver;
     }
+    */
 }

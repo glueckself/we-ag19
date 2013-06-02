@@ -4,7 +4,6 @@ import tuwien.big.formel0.utilities.Utility;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -13,42 +12,26 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.validator.ValidatorException;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceUnit;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
 import tuwien.big.formel0.entities.Player;
-import tuwien.big.formel0.entities.RegisteredPlayerPool;
-import tuwien.big.formel0.picasa.RaceDriver;
-import tuwien.big.formel0.picasa.RaceDriverService;
 
 /**
  *
  */
 @ManagedBean(name = "rc")
 @RequestScoped
-public class RegisterControl {
-
+public class RegisterControl {    
     @ManagedProperty(value = "#{player}")
     private Player newplayer;
     @ManagedProperty(value = "false")
     private boolean displayterms;
-    @ManagedProperty(value = "#{rpp}")
-    private RegisteredPlayerPool rpp;
     @ManagedProperty(value = "#{false}")
     private boolean registrationsuccessful;
-
-    private static List<RaceDriver> raceDrivers = null;
-
-    public List<RaceDriver> getRaceDrivers() {
-        // TODO: Load from database instead of a static variable!
-        // Initialization of database with picasa data should happen somewhere else
-        if (raceDrivers == null) {
-            try {
-                raceDrivers = (new RaceDriverService()).getRaceDrivers();
-            }
-            catch(Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return raceDrivers;
-    }
 
     /**
      * Creates a new instance of RegisterControl
@@ -57,11 +40,26 @@ public class RegisterControl {
     }
 
     public String register() {
-        boolean success = getRpp().addPlayer(newplayer);
-
-        if (success == true) {
-            registrationsuccessful = true;
+        EntityManager em;
+        Player player;
+    
+        em=Utility.getEntityManagerFactory().createEntityManager();
+        em.getTransaction().begin();
+        
+        player = (Player)em.find(Player.class,newplayer.getName());
+        if(player != null) {
+            em.getTransaction().rollback();
+            em.close();
+            return "register";
         }
+        
+        player = new Player(newplayer);
+        
+        em.persist(player);
+        em.flush();
+        em.getTransaction().commit();
+        registrationsuccessful = true;
+        em.close();
         return "register";
     }
 
@@ -120,20 +118,6 @@ public class RegisterControl {
      */
     public void setDisplayterms(boolean displayterms) {
         this.displayterms = displayterms;
-    }
-
-    /**
-     * @return the rpp
-     */
-    public RegisteredPlayerPool getRpp() {
-        return rpp;
-    }
-
-    /**
-     * @param rpp the rpp to set
-     */
-    public void setRpp(RegisteredPlayerPool rpp) {
-        this.rpp = rpp;
     }
 
     /**
