@@ -6,6 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ApplicationScoped;
+import tuwien.big.formel0.picasa.RaceDriver;
 
 /**
  *
@@ -27,6 +28,11 @@ public class RegisteredPlayerPool {
         Player tp = new Player();
         tp.setName("t");
         tp.setPassword("t");
+        RaceDriver d = new RaceDriver();
+        d.setName("Mika Haekkinen");
+        d.setUrl("https://lh6.googleusercontent.com/-DeoFoqUTE2M/UXJX1Xca-cI/AAAAAAAAAFM/tZLUlhmxvIM/s144/mika_hakkinen.jpg");
+        d.setWikiUrl("https://de.wikipedia.org/wiki/Mika_Häkkinen");
+        tp.setAvatar(d);
         regplayers.put("t", tp);
     }
 
