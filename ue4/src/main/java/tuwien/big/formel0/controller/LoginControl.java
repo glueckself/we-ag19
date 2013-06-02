@@ -5,19 +5,20 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnit;
 import javax.servlet.http.HttpServletRequest;
 import tuwien.big.formel0.entities.Player;
-import tuwien.big.formel0.entities.RegisteredPlayerPool;
 import tuwien.big.formel0.utilities.Utility;
 
 @ManagedBean(name = "lc")
 @SessionScoped
-public class LoginControl {
-
+public class LoginControl {    
     @ManagedProperty(value = "#{player}")
     private Player player;
-    @ManagedProperty(value = "#{rpp}")
-    private RegisteredPlayerPool rpp;
     @ManagedProperty(value = "#{gc}")
     private GameControl gc;
     @ManagedProperty(value = "false")
@@ -42,20 +43,40 @@ public class LoginControl {
 
         return "index";
     }
+    
+    private String loginError() {
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", Utility.getResourceText(ctx, "msg", "loginfailed"));
+        ctx.addMessage("login", message);
+        return "index";
+    }
 
     public String login() {
-        player = getRpp().getRegisteredPlayer(name, password);
+        EntityManager em;
+        Player tmpPlayer;
         
-        if (player != null) {
-            gc = new GameControl(player.getName());
-
-            return "table";
-        } else {
-            FacesContext ctx = FacesContext.getCurrentInstance();
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", Utility.getResourceText(ctx, "msg", "loginfailed"));
-            ctx.addMessage("login", message);
-            return "index";
+        em=Utility.getEntityManagerFactory().createEntityManager();
+        
+        em.getTransaction().begin();
+        
+        tmpPlayer = (Player)em.find(Player.class,name);
+        if(tmpPlayer == null) {
+            em.getTransaction().rollback();
+            em.close();
+            return loginError();
         }
+        
+        if(!tmpPlayer.getPassword().equals(password)) {
+            em.getTransaction().rollback();
+            em.close();
+            return loginError();
+        }
+        
+        player=tmpPlayer;
+        gc = new GameControl(player.getName());
+        em.getTransaction().commit();
+        em.close();
+        return "table";
     }
 
     /**
@@ -98,20 +119,6 @@ public class LoginControl {
      */
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    /**
-     * @return the rpp
-     */
-    public RegisteredPlayerPool getRpp() {
-        return rpp;
-    }
-
-    /**
-     * @param rpp the rpp to set
-     */
-    public void setRpp(RegisteredPlayerPool rpp) {
-        this.rpp = rpp;
     }
 
     /**

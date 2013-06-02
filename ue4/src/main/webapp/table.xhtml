@@ -51,12 +51,7 @@
                                 <th id="player2NameLabel" class="label">#{msg.player2}</th>
                                 <td id="player2Name" class="data">#{lc.gc.player2.name}</td>
                             </tr>
-                        </table>
-                        <div id="raceDriverLink">
-                            <a href="#{lc.player.avatar.wikiUrl}" target="_blank">
-                                <img src="#{lc.player.avatar.url}" alt="#{lc.player.avatar.name}" />
-                            </a>
-                        </div>
+                        </table>    	  
                     </h:panelGroup>
                     <div id="field" class="field">
                         <h2 class="accessibility">#{msg.playarea}</h2>
@@ -105,17 +100,10 @@
                         <h:form id="form">
                             <div>
                                 <h:commandButton id="dice" tabindex="4" action="#{lc.gc.doRound()}" disabled="#{lc.gc.gameOver}" image="#{resource[lc.gc.diceResource]}" title="#{msg.dicescore} #{lc.gc.playerScore}" alt="#{msg.dicescore} #{lc.gc.playerScore}">
-                                    <f:ajax render=":player :info :script :twitterMessage"/>
+                                    <f:ajax render=":player :info :script"/>
                                 </h:commandButton>
                             </div>
                         </h:form>
-                    </h:panelGroup>
-                    <h:panelGroup layout="block" id="twitterMessage" class="twitterMessage">
-                        <h:panelGroup layout="block" id="twitterMessageContent" class="twitterMessageContent" rendered="#{lc.gc.twitterMessageVisible}">
-                            <h:outputFormat value="#{msg.twitterMessage}">
-                                <f:param value="#{lc.gc.UUID}" />
-                            </h:outputFormat>
-                        </h:panelGroup>
                     </h:panelGroup>
                 </div>
 
