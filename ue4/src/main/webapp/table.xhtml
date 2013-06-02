@@ -51,7 +51,12 @@
                                 <th id="player2NameLabel" class="label">#{msg.player2}</th>
                                 <td id="player2Name" class="data">#{lc.gc.player2.name}</td>
                             </tr>
-                        </table>    	  
+                        </table>
+                        <div id="raceDriverLink">
+                            <a href="#{lc.player.avatar.wikiUrl}" target="_blank">
+                                <img src="#{lc.player.avatar.url}" alt="#{lc.player.avatar.name}" />
+                            </a>
+                        </div>
                     </h:panelGroup>
                     <div id="field" class="field">
                         <h2 class="accessibility">#{msg.playarea}</h2>
