@@ -17,6 +17,8 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigInteger;
 import java.util.logging.Logger;
+import javax.persistence.EntityManager;
+import tuwien.big.formel0.utilities.Utility;
 
 @ManagedBean(name = "gc")
 @SessionScoped
@@ -122,7 +124,6 @@ public class GameControl {
         if (isGameOver()) {
             // this part is (and must be) run only once per game (when the game is won)
 
-            // TODO: Get UUID from the leaderboard
             PublishHighScoreService highScoreService = new PublishHighScoreService();
             PublishHighScoreEndpoint highScore = highScoreService.getPublishHighScorePort();
             
@@ -146,18 +147,47 @@ public class GameControl {
             TournamentType.Players players = objectFactory.createTournamentTypePlayers();
             TournamentType.Players.Player currentPlayer = objectFactory.createTournamentTypePlayersPlayer();
             
-            //TODO: get real date of birth
-            GregorianCalendar calendar = new GregorianCalendar(1990, 1, 1);
+            EntityManager entityManager;
+            tuwien.big.formel0.entities.Player tablePlayer;
+
+            entityManager = Utility.getEntityManagerFactory().createEntityManager();
+
+            entityManager.getTransaction().begin();
+            
+            tablePlayer = (tuwien.big.formel0.entities.Player)entityManager.find(tuwien.big.formel0.entities.Player.class, game.getPlayer().getName());
+
+            String[] dateOfBirth = new String[3];
+            dateOfBirth[0] = "1";
+            dateOfBirth[1] = "0";
+            dateOfBirth[2] = "1990";
+            String gender = "MALE";
+            
+            if(tablePlayer != null) {
+                if(tablePlayer.getSex().equals("w")) {
+                    gender = "FEMALE";
+                }
+                
+                String birthday = tablePlayer.getBirthday();
+                String delim = "\\.";
+                dateOfBirth = birthday.split(delim);
+                
+                entityManager.getTransaction().commit();
+                entityManager.close();
+            } else {
+                entityManager.getTransaction().rollback();
+                entityManager.close();
+            }
+            
+            GregorianCalendar calendar = new GregorianCalendar(Integer.parseInt(dateOfBirth[2]), Integer.parseInt(dateOfBirth[1]) - 1, Integer.parseInt(dateOfBirth[0]));
             try {
-                XMLGregorianCalendar dateOfBirth = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
-                currentPlayer.setDateOfBirth(dateOfBirth);
+                XMLGregorianCalendar birthdate = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
+                currentPlayer.setDateOfBirth(birthdate);
             } catch(Exception e) {
                 System.err.println(e.getMessage());
             }
             
             currentPlayer.setUsername(player.getName());
-            //TODO: get real gender
-            currentPlayer.setGender("MALE");
+            currentPlayer.setGender(gender);
             
             players.getPlayer().add(currentPlayer);
             tournament.setPlayers(players);
@@ -176,7 +206,7 @@ public class GameControl {
             currentGame.setStatus("finished");
             long milliseconds = game.getSpentTime();
             currentGame.setDuration(BigInteger.valueOf(TimeUnit.MILLISECONDS.toSeconds(milliseconds)));
-            // if leader is computer, send "Computer"
+            // if computer is leader, send "Computer"
             if(game.getLeader().getName().equals(game.getComputer().getName())) {
                 currentGame.setWinner("Computer");
             } else {
