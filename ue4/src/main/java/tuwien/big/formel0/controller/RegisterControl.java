@@ -4,6 +4,7 @@ import tuwien.big.formel0.utilities.Utility;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -13,12 +14,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.validator.ValidatorException;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaQuery;
 import tuwien.big.formel0.entities.Player;
+import tuwien.big.formel0.picasa.RaceDriver;
 
 /**
  *
@@ -33,10 +31,22 @@ public class RegisterControl {
     @ManagedProperty(value = "#{false}")
     private boolean registrationsuccessful;
 
+    public List<RaceDriver> getRaceDrivers() {
+        EntityManager em = Utility.getEntityManagerFactory().createEntityManager();
+        Query query = em.createQuery("Select emp from RaceDriver emp");
+        List<RaceDriver> rd = query.getResultList();
+        return rd;
+    }
+    
+        // TODO: Load from database instead of a static variable!
+        // Initialization of database with picasa data should happen somewhere else
+
     /**
      * Creates a new instance of RegisterControl
      */
     public RegisterControl() {
+        registrationsuccessful=false;
+        return;
     }
 
     public String register() {

@@ -40,18 +40,25 @@
                                 <f:selectItem itemValue="w" itemLabel="#{msg.female}"/>
                                 <f:selectItem itemValue="m" itemLabel="#{msg.male}"/>
                             </h:selectOneMenu>
+                            <div></div>
+
+                            <h:outputLabel class="registerform" for="avatar" value="#{msg.avatar}"/>
+                            <h:selectOneMenu id="avatar" label="#{msg.avatar}" value="#{rc.newplayer.avatar}" tabindex="6">
+                                <f:selectItems value="#{rc.raceDrivers}" var="_driver" itemValue="#{_driver}" itemLabel="#{_driver.name}"/>
+                                <f:converter converterId="tuwien.big.formel0.picasa.RaceDriverConverter"/>
+                            </h:selectOneMenu>
                         </fieldset>
 
                         <h3>#{msg.logindatahead}</h3>
                         <fieldset class="formblock">
                             <h:outputLabel class="registerform" for="username" value="#{msg.username}"/>
-                            <h:inputText required="true"  id="username" label="#{msg.username}" value="#{rc.newplayer.name}" tabindex="6">
+                            <h:inputText required="true"  id="username" label="#{msg.username}" value="#{rc.newplayer.name}" tabindex="7">
                                 <f:validateRegex pattern="[A-Za-z][A-Za-z]*"/>
                             </h:inputText>
                             <h:messages id="username_messages" class="validation_error" for="username" showDetail="true" showSummary="false"/>
 
                             <h:outputLabel class="registerform" for="password" value="#{msg.password}"/>
-                            <h:inputSecret required="true"  id="password" label="#{msg.password}" value="#{rc.newplayer.password}" tabindex="7">
+                            <h:inputSecret required="true"  id="password" label="#{msg.password}" value="#{rc.newplayer.password}" tabindex="8">
                                 <f:validateLength minimum="2"/>
                                 <f:validateRegex pattern="[A-Za-z0-9]*([A-Za-z][0-9]|[0-9][A-Za-z])[A-Za-z0-9]*"/>
                             </h:inputSecret>
@@ -60,7 +67,7 @@
 
                         <fieldset>    
                             <h:selectBooleanCheckbox id="showterms" immediate="true" value="#{rc.displayterms}"
-                                                     valueChangeListener="#{rc.displayChanged}" tabindex="8">
+                                                     valueChangeListener="#{rc.displayChanged}" tabindex="9">
                                 <f:ajax render=":form:terms" execute="@this"/>
                             </h:selectBooleanCheckbox>
                             <h:outputLabel styleClass="Float" for="showterms" value="#{msg.showterms}"/>
@@ -72,11 +79,11 @@
                         </fieldset>
 
                         <div id="buttons">
-                            <h:commandButton id="submit" value="#{msg.regbutton}" accesskey="r" action="#{rc.register}" rendered="#{!rc.registrationsuccessful}" tabindex="9"/>
+                            <h:commandButton id="submit" value="#{msg.regbutton}" accesskey="r" action="#{rc.register}" rendered="#{!rc.registrationsuccessful}" tabindex="10"/>
                         </div>
                         <h:panelGroup id="goToLogin" layout="block" rendered="#{rc.registrationsuccessful}">
                             <h:outputText value="#{msg.successgoto} "/>
-                            <h:link value="#{msg.login}" accesskey="l" outcome="index" tabindex="9"/>
+                            <h:link value="#{msg.login}" accesskey="l" outcome="index" tabindex="10"/>
                         </h:panelGroup>
                     </h:form>
                 </div>

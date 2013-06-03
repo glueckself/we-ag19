@@ -1,6 +1,8 @@
 package tuwien.big.formel0.picasa;
 
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -23,11 +25,11 @@ implements Serializable {
     private String url;
     private String wikiUrl;
     
-    /*
     @OneToMany
-    private Set<Player> player;
-*/
+    private List<Player> player;
+
     public RaceDriver() {
+        player=new LinkedList<Player>();
     }
 
     public String getName() {
@@ -45,6 +47,23 @@ implements Serializable {
     public void setUrl(String url) {
         this.url = url;
     }
+    
+    @Override
+    public boolean equals(Object object) {
+        if(!(object instanceof RaceDriver))
+            return false;
+        
+        RaceDriver rd = (RaceDriver)object;
+        
+        if(!name.equals(rd.name))
+            return false;
+        if(!url.equals(rd.url))
+            return false;
+        if(!wikiUrl.equals(rd.wikiUrl))
+            return false;
+        
+        return true;        
+    }
 
     public String getWikiUrl() {
         return wikiUrl;
@@ -56,17 +75,16 @@ implements Serializable {
 
     /**
      * @return the player
-     *
-    public Set<Player> getPlayer() {
+     */
+    public List<Player> getPlayer() {
         return player;
     }
 
     /**
      * @param player the player to set
-     *
-    public void setPlayer(Set<Player> player) {
+     */
+    public void setPlayer(List<Player> player) {
         this.player = player;
     }
-    * */
 
 }

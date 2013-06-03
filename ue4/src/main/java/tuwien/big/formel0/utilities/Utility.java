@@ -29,6 +29,8 @@ public class Utility {
         return text;
     }
     
+
+    
     public static EntityManagerFactory getEntityManagerFactory() {
         if(emf == null)
             emf=Persistence.createEntityManagerFactory("lab4");

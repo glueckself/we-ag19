@@ -3,13 +3,9 @@ package tuwien.big.formel0.entities;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.NoneScoped;
-import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.RequestScoped;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import tuwien.big.formel0.picasa.RaceDriver;
 
@@ -22,15 +18,15 @@ implements Serializable {
 
     private String firstname = null;
     private String lastname = null;
+    @Id
     private String name = null;
     private String password = null;
     private String birthday = null;
     private String sex = null;
-    
-    /*
+  
     @ManyToOne
-    private RaceDriver driver;
-    */
+    private RaceDriver avatar;
+    
 
     /**
      * Creates a new instance of Player
@@ -45,13 +41,13 @@ implements Serializable {
         password=original.password;
         birthday=original.birthday;
         sex=original.sex;
+        avatar=original.avatar;
     }
 
     /**
      * @return the name
      */
-    @Id
-    public String getName() {
+        public String getName() {
         return name;
     }
 
@@ -135,16 +131,16 @@ implements Serializable {
     
     /**
      * @return the driver
-     *
-    public RaceDriver getDriver() {
-        return driver;
+     */
+    public RaceDriver getAvatar() {
+        return avatar;
     }
 
     /**
      * @param driver the driver to set
-     *
-    public void setDriver(RaceDriver driver) {
-        this.driver = driver;
+     */
+    public void setAvatar(RaceDriver driver) {
+        this.avatar = driver;
     }
-    */
+    
 }

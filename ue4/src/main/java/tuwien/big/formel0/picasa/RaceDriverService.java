@@ -4,17 +4,45 @@ import com.google.gdata.util.ServiceException;
 import java.io.IOException;
 import java.util.List;
 
-import java.io.File;
 import java.net.URL;
 
 import com.google.gdata.client.*;
 import com.google.gdata.client.photos.*;
-import com.google.gdata.data.*;
-import com.google.gdata.data.media.*;
 import com.google.gdata.data.photos.*;
 import java.util.LinkedList;
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
+import javax.persistence.EntityManager;
+import tuwien.big.formel0.utilities.Utility;
 
-public class RaceDriverService implements IRaceDriverService {
+@ManagedBean(eager = true)
+@ApplicationScoped
+public class RaceDriverService implements IRaceDriverService {    
+    public RaceDriverService() {
+            List<RaceDriver> raceDrivers;
+            
+            try {
+                raceDrivers = getRaceDrivers();
+            }
+            catch(Exception e) {
+                //e.printStackTrace();
+                return;
+            }
+            
+            EntityManager em = Utility.getEntityManagerFactory().createEntityManager();
+            
+            em.getTransaction().begin();
+            for(RaceDriver rd : raceDrivers) {
+                //already in db
+                if(em.find(RaceDriver.class, rd.getName()) != null)
+                    continue;
+                
+                em.persist(rd);
+            }
+            em.flush();
+            em.getTransaction().commit();
+            em.close();
+    }
 
     @Override
     public List<RaceDriver> getRaceDrivers() throws IOException, ServiceException {

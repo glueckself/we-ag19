@@ -12,6 +12,7 @@ package formel0api;
 
 import java.util.ArrayList;
 import java.util.List;
+import tuwien.big.formel0.picasa.RaceDriver;
 
 /**
  * Class representing a player playing in a {@link Game}.
@@ -26,6 +27,7 @@ public class Player {
      * The name of this user
      */
     private String name;
+    private RaceDriver avatar;
     /**
      * The current position of the user's car
      */
@@ -83,5 +85,19 @@ public class Player {
             return history.get(index);
         }
         return -1;
+    }
+
+    /**
+     * @return the avatar
+     */
+    public RaceDriver getAvatar() {
+        return avatar;
+    }
+
+    /**
+     * @param avatar the avatar to set
+     */
+    public void setAvatar(RaceDriver avatar) {
+        this.avatar = avatar;
     }
 }
