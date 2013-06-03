@@ -369,7 +369,7 @@ public class TournamentType {
             protected XMLGregorianCalendar dateOfBirth;
             @XmlElement(required = true)
             protected String gender;
-            @XmlAttribute(required = true)
+            @XmlAttribute(name = "username", required = true)
             protected String username;
 
             /**
@@ -546,7 +546,7 @@ public class TournamentType {
 
             @XmlElement(required = true)
             protected List<GameType> game;
-            @XmlAttribute(required = true)
+            @XmlAttribute(name = "number", required = true)
             protected int number;
 
             /**

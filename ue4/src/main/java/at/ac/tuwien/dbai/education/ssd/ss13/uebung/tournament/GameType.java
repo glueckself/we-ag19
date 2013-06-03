@@ -113,15 +113,15 @@ public class GameType {
     protected GameType.Players players;
     @XmlElement(name = "game-history")
     protected GameType.GameHistory gameHistory;
-    @XmlAttribute(required = true)
+    @XmlAttribute(name = "date", required = true)
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar date;
-    @XmlAttribute
+    @XmlAttribute(name = "status")
     protected String status;
-    @XmlAttribute
+    @XmlAttribute(name = "duration")
     @XmlSchemaType(name = "nonNegativeInteger")
     protected BigInteger duration;
-    @XmlAttribute
+    @XmlAttribute(name = "winner")
     protected String winner;
 
     /**
@@ -379,9 +379,9 @@ public class GameType {
         @XmlType(name = "")
         public static class Move {
 
-            @XmlAttribute(required = true)
+            @XmlAttribute(name = "player", required = true)
             protected String player;
-            @XmlAttribute(required = true)
+            @XmlAttribute(name = "dots", required = true)
             protected int dots;
             @XmlAttribute(name = "start-point", required = true)
             protected int startPoint;
@@ -551,7 +551,7 @@ public class GameType {
         @XmlType(name = "")
         public static class Player {
 
-            @XmlAttribute
+            @XmlAttribute(name = "ref")
             protected String ref;
 
             /**

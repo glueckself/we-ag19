@@ -40,8 +40,8 @@ import javax.xml.bind.annotation.XmlType;
 public class DescriptionType {
 
     @XmlElementRefs({
-        @XmlElementRef(name = "em", namespace = "http://www.dbai.tuwien.ac.at/education/ssd/SS13/uebung/Tournament", type = JAXBElement.class),
-        @XmlElementRef(name = "p", namespace = "http://www.dbai.tuwien.ac.at/education/ssd/SS13/uebung/Tournament", type = JAXBElement.class)
+        @XmlElementRef(name = "p", namespace = "http://www.dbai.tuwien.ac.at/education/ssd/SS13/uebung/Tournament", type = JAXBElement.class, required = false),
+        @XmlElementRef(name = "em", namespace = "http://www.dbai.tuwien.ac.at/education/ssd/SS13/uebung/Tournament", type = JAXBElement.class, required = false)
     })
     @XmlMixed
     protected List<Serializable> content;
@@ -64,8 +64,8 @@ public class DescriptionType {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link JAXBElement }{@code <}{@link String }{@code >}
      * {@link String }
+     * {@link JAXBElement }{@code <}{@link String }{@code >}
      * {@link JAXBElement }{@code <}{@link DescriptionType }{@code >}
      * 
      * 

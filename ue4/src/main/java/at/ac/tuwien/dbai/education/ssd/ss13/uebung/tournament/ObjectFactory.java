@@ -36,14 +36,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GameType.GameHistory }
-     * 
-     */
-    public GameType.GameHistory createGameTypeGameHistory() {
-        return new GameType.GameHistory();
-    }
-
-    /**
      * Create an instance of {@link GameType }
      * 
      */
@@ -52,19 +44,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DescriptionType }
+     * Create an instance of {@link GameType.GameHistory }
      * 
      */
-    public DescriptionType createDescriptionType() {
-        return new DescriptionType();
+    public GameType.GameHistory createGameTypeGameHistory() {
+        return new GameType.GameHistory();
     }
 
     /**
-     * Create an instance of {@link TournamentType.Rounds.Round }
+     * Create an instance of {@link GameType.Players }
      * 
      */
-    public TournamentType.Rounds.Round createTournamentTypeRoundsRound() {
-        return new TournamentType.Rounds.Round();
+    public GameType.Players createGameTypePlayers() {
+        return new GameType.Players();
     }
 
     /**
@@ -92,6 +84,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link DescriptionType }
+     * 
+     */
+    public DescriptionType createDescriptionType() {
+        return new DescriptionType();
+    }
+
+    /**
      * Create an instance of {@link GameType.GameHistory.Move }
      * 
      */
@@ -108,19 +108,19 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link TournamentType.Rounds.Round }
+     * 
+     */
+    public TournamentType.Rounds.Round createTournamentTypeRoundsRound() {
+        return new TournamentType.Rounds.Round();
+    }
+
+    /**
      * Create an instance of {@link TournamentType.Players.Player }
      * 
      */
     public TournamentType.Players.Player createTournamentTypePlayersPlayer() {
         return new TournamentType.Players.Player();
-    }
-
-    /**
-     * Create an instance of {@link GameType.Players }
-     * 
-     */
-    public GameType.Players createGameTypePlayers() {
-        return new GameType.Players();
     }
 
     /**

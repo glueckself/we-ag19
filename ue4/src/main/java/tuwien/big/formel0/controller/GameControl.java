@@ -16,6 +16,7 @@ import java.util.GregorianCalendar;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigInteger;
+import java.util.logging.Logger;
 
 @ManagedBean(name = "gc")
 @SessionScoped
@@ -146,7 +147,7 @@ public class GameControl {
             TournamentType.Players.Player currentPlayer = objectFactory.createTournamentTypePlayersPlayer();
             
             //TODO: get real date of birth
-            GregorianCalendar calendar = new GregorianCalendar(1990, 12, 31);
+            GregorianCalendar calendar = new GregorianCalendar(1990, 1, 1);
             try {
                 XMLGregorianCalendar dateOfBirth = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
                 currentPlayer.setDateOfBirth(dateOfBirth);
@@ -194,6 +195,8 @@ public class GameControl {
             highScoreRequest.setTournament(tournament);
             try {
                 uuid = highScore.publishHighScore(highScoreRequest);
+                Logger logger = Logger.getLogger("uuid-log");
+                logger.info(uuid);
             } catch(Failure failure) {
                 System.err.println(failure.getFaultInfo().getDetail());
             }
